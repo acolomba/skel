@@ -1,0 +1,62 @@
+# PLAYER CHARACTER
+OPTIONS=role:samurai,align:lawful,gender:male,name=Alessandro
+
+
+# GRAPHICS
+OPTIONS=DECgraphics
+OPTIONS=color
+OPTIONS=lit_corridor
+OPTIONS=boulder:0
+
+# menucolors
+OPTIONS=menucolors
+MENUCOLOR=" blessed "=green
+MENUCOLOR=" holy "=green
+MENUCOLOR=" cursed "=red
+MENUCOLOR=" unholy "=red
+MENUCOLOR=" cursed .* (being worn)"=orange&underline
+
+
+# UI
+
+# anything but slime mold
+OPTIONS=fruit:mango
+
+# no intro message
+OPTIONS=!legacy
+
+# pop up menu of extended commands
+OPTIONS=extmenu
+
+# refresh at every step
+OPTIONS=runmode:walk
+
+# show experience, score, turns
+OPTIONS=showexp,showscore,time
+
+# long message history, reversed
+OPTIONS=msghistory:10000
+OPTIONS=msg_window:r
+
+# no feature change info
+OPTIONS=suppress_alert:3.4.3
+
+
+# GAMEPLAY
+
+# autodig
+OPTIONS=autodig
+
+# no confirmation before praying
+OPTIONS=!prayconfirm
+
+# use alternate weapon slot
+OPTIONS=pushweapon
+
+# autopickup
+OPTIONS=autopickup
+OPTIONS=pickup_types:$
+OPTIONS=pickup_burden:B
+
+# disclosures at game's end
+OPTIONS=disclose:-i -a -v -g -c

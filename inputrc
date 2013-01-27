@@ -1,0 +1,28 @@
+# ignores cases
+set completion-ignore-case on
+
+# ~ is left unexpanded when completing paths
+set expand-tilde off
+
+# adds trailing / to symlinks when completing paths
+set mark-symlinked-directories on
+
+# uses the text that has already been typed as the prefix for searching through
+# commands
+"\e[B": history-search-forward
+"\e[A": history-search-backward
+
+# avoids autocompleting hidden files unless the pattern explicitly begins with a
+# dot
+set match-hidden-files off
+
+# shows extra file info when completing, much like `ls -F` does
+set visible-stats on
+
+# considers text on and after cursor to autocomplete
+set skip-completed-text on
+
+# allows utf-8 text
+set input-meta on
+set output-meta on
+set convert-meta off
