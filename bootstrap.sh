@@ -2,8 +2,8 @@
 
 cd $(dirname "$0") || exit 1
 
+# parses cmdline options
 USAGE="Usage: $(basename $0) [-hl]"
-
 while getopts :hl opt; do
     case $opt in
         h)
@@ -53,6 +53,8 @@ done
 
 if [[ $(uname) = 'Darwin' ]]; then
     # if running os x
+
+    # sets up brew
     if which brew >/dev/null; then
         # taps
         brew tap homebrew/games >/dev/null
@@ -65,12 +67,7 @@ if [[ $(uname) = 'Darwin' ]]; then
             fi
         done
     else
-        echo >&2 "NOTE: brew is not installed"
+        # or warns it's not yet installed
+        echo >&2 "WARN: brew is not installed. Install with: 'ruby -e \"\$(curl -fsSL https://raw.github.com/mxcl/homebrew/go)\"'"
     fi
 fi
-
-
-# TODO
-# brew tap homebrew/games
-# brew install elinks install mercurial nethack proxytunnel python python python screen tinyproxy tsocks unnethack unrar vim vim watch wget wget python
-
