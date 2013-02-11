@@ -12,40 +12,6 @@ export PATH="~/bin:${PATH}"
 # ( system local/homebrew macports ipkg )
 prefixes=( "" /usr/local /opt/local /opt )
 
-
-# bash prompt
-
-# username@host for other accounts
-prompt_host="\u@\h"
-
-# shortens prompt_host if known username
-usernames=( acolomba u1dc39 )
-for username in "${usernames[@]}"; do
-    if [[ $USER = $username ]]; then
-        # only host for my account
-        prompt_host="\h"
-    fi
-done
-
-# suffix depends on privs
-if [[ $(id -u) == 0 ]]; then
-    # pound for root
-    prompt_suffix="#"
-else
-    # gt otherwise
-    prompt_suffix=">"
-fi
-
-# some colors
-start_host_color="\[\e[1;31m\]"
-end_host_color="\[\e[m\]"
-start_pwd_color="\[\e[1;34m\]"
-end_pwd_color="\[\e[m\]"
-
-# the prompt
-export PS1="${start_host_color}${prompt_host}${end_host_color}:${start_pwd_color}\w${end_pwd_color} ${prompt_suffix} "
-
-
 # history prefs
 export HISTSIZE=50000
 export HISTCONTROL="erasedups:ignoredups:ignorespace"
