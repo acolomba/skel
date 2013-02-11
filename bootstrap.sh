@@ -45,7 +45,7 @@ done
 shift $(expr $OPTIND - 1)
 
 # vim stuff
-for vd in "~/.vim/backups" "~/.vim/swaps"; do
+for vd in "${HOME}/.vim/backups" "${HOME}/vim/swaps"; do
     if [[ ! -d $vd ]]; then
         mkdir -p "$vd"
     fi
