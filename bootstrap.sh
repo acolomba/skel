@@ -11,7 +11,7 @@ while getopts :hl opt; do
             exit 0
             ;;
         l)
-            link_dotfiles=1
+            link_only=1
             ;;
         \?)
             echo >&2 $USAGE
@@ -20,26 +20,31 @@ while getopts :hl opt; do
     esac
 done
 
+# copies or links the file at $1 to the location at $2; both paths must be
+# filenames (i.e. no cp x d/), with $1 relative to this script's location
+cpln() {
+    if [[ $link_only ]]; then
+        # if requested to create links to dotfiles, does so
+        ln -sf "$(pwd)/$1" "$2"
+    else
+        # otherwise removes links (if any)...
+        if [[ -L $2 ]]; then
+            echo >&2 "Removing symlink $2"
+            rm "$2"
+        fi
+
+        # .. and copies the file
+        cp "$1" "$2"
+    fi
+}
+
 dotfiles=( bash_profile bashrc inputrc nethackrc screenrc vimrc )
 umask 0077
 
 for df in "${dotfiles[@]}"; do
     dst_df="${HOME}/.${df}"
 
-    if [[ $link_dotfiles ]]; then
-        # if requested to create links to dotfiles, does so
-        ln -sf "$(pwd)/${df}" "${dst_df}"
-    else
-        # otherwise removes links (if any)...
-        if [[ -L ${dst_df} ]]; then
-            echo >&2 "Removing symlink .${df}"
-            rm "${dst_df}"
-        fi
-
-        # .. and copies dotfiles
-        cp "${df}" "${dst_df}"
-        # || { echo "Could not copy .${df} into home folder"; exit 1 }
-    fi
+    cpln "${df}" "${dst_df}"
 done
 
 shift $(expr $OPTIND - 1)
@@ -51,8 +56,21 @@ for vd in "${HOME}/.vim/backups" "${HOME}/vim/swaps"; do
     fi
 done
 
+
+# macosx specific
 if [[ $(uname) = 'Darwin' ]]; then
     # if running os x
+
+    # writes sublime text 2 preferences (macosx only for now)
+    st2_settings_home="$HOME/Library/Application Support/Sublime Text 2/Packages/User"
+    if [[ -d $st2_settings_home ]]; then
+        cpln "conf/sublime-text-2/Preferences.sublime-settings" "${st2_settings_home}"
+
+        st2_settings_filename=Preferences.sublime-settings
+        st2_settings_path="${st2_settings_home}/${st2_settings_filename}"
+
+        cpln "conf/sublime-text-2/Preferences.sublime-settings" "${st2_settings_path}"
+    fi
 
     # sets up brew
     if which brew >/dev/null; then
