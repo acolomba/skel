@@ -73,12 +73,14 @@ if [[ $(uname) = 'Darwin' ]]; then
     fi
 
     # sets up brew
-    if which brew >/dev/null; then
+    if which -s brew; then
+        # if brew installed...
+
         # taps
         brew tap homebrew/games >/dev/null
 
-        # if brew installed, checks that we have the base set of packages
-        for formula in elinks irssi mercurial nethack proxytunnel python python python source-highlight tinyproxy unnethack unrar vim vim watch wget wget python; do
+        # checks that we have the base set of packages
+        for formula in links irssi mercurial nethack proxytunnel python python python source-highlight tinyproxy unnethack unrar vim vim watch wget wget python; do
             if [[ -z $(brew which $formula) ]]; then
                 # installs package if not already installed
                 brew install $formula
@@ -86,6 +88,6 @@ if [[ $(uname) = 'Darwin' ]]; then
         done
     else
         # or warns it's not yet installed
-        echo >&2 "WARN: brew is not installed. Install with: 'ruby -e \"\$(curl -fsSL https://raw.github.com/mxcl/homebrew/go)\"'"
+        echo >&2 "WARN: brew is not installed. Install with: 'ruby -e \"\$(curl -fsSL https://raw.github.com/mxcl/homebrew/go)\"' and run $0 again."
     fi
 fi
