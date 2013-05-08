@@ -1,28 +1,26 @@
 # paths
 
-# optware
-if [[ -d /opt/bin ]]; then
-    export PATH="/opt/bin:${PATH}"
-fi
-
-# own bins
-export PATH="~/bin:${PATH}"
-
 # prefixes of installed software, config, etc.
 # ( system local/homebrew macports ipkg )
 prefixes=( "" /usr/local /opt/local /opt )
+
+for prefix in "${prefixes[@]}"; do
+    if [[ -d ${prefix}/bin ]]; then
+        export PATH="${prefix}/bin:${PATH}"
+    fi
+done
+
+# own bins
+export PATH="~/bin:${PATH}"
 
 # history prefs
 export HISTSIZE=50000
 export HISTCONTROL="erasedups:ignoredups:ignorespace"
 export HISTIGNORE="bg:fg:rm *:exit"
 
-
 # completion
 for prefix in "${prefixes[@]}"; do
     if [[ -f ${prefix}/etc/bash_completion ]]; then
-        . "${prefix}/etc/bash_completion"
-
         # no expansion of cd ~
         complete -r cd
     fi
