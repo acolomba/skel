@@ -80,7 +80,7 @@ if [[ $(uname) = 'Darwin' ]]; then
         brew tap homebrew/games >/dev/null
 
         # checks that we have the base set of packages
-        for formula in links irssi mercurial nethack proxytunnel python python python source-highlight tinyproxy unnethack unrar vim vim watch wget wget python; do
+        for formula in bash links irssi mercurial nethack proxytunnel python python python source-highlight tinyproxy unnethack unrar vim vim watch wget wget python; do
             if [[ -z $(brew which $formula) ]]; then
                 # installs package if not already installed
                 brew install $formula

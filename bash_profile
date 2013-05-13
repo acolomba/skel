@@ -2,7 +2,18 @@
 
 # prefixes of installed software, config, etc.
 # ( system local/homebrew macports ipkg )
+# NOTE some systems have /usr/local/bin in the path already, but here we want
+# to make sure it's before other system-defined path entries
 prefixes=( "" /usr/local /opt/local /opt )
+
+# if not running bash 4, tries to find one
+if [[ $BASH_VERSINFO != "4" ]]; then
+    for prefix in "${prefixes[@]}"; do
+        if [[ -x ${prefix}/bin/bash && $(${prefix}/bin/bash -c 'echo $BASH_VERSINFO') = "4" ]]; then
+            exec ${prefix}/bin/bash --login
+        fi
+    done
+fi
 
 for prefix in "${prefixes[@]}"; do
     if [[ -d ${prefix}/bin ]]; then
@@ -62,16 +73,6 @@ if [[ $(uname) = 'Darwin' ]]; then
     if [[ $sw_vers = '10.7' || $sw_vers = '10.8' ]]; then
         chflags nohidden ~/Library
     fi
-fi
-
-
-# if not running bash 4, tries to find one
-if [[ $BASH_VERSINFO != "4" ]]; then
-    for prefix in "${prefixes[@]}"; do
-        if [[ -x ${prefix}/bin/bash && $(${prefix}/bin/bash -c 'echo $BASH_VERSINFO') = "4" ]]; then
-            exec ${prefix}/bin/bash
-        fi
-    done
 fi
 
 # sources bashrc for login shells
