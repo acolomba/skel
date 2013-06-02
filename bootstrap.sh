@@ -49,14 +49,6 @@ done
 
 shift $(expr $OPTIND - 1)
 
-# vim stuff
-for vd in "${HOME}/.vim/backups" "${HOME}/vim/swaps"; do
-    if [[ ! -d $vd ]]; then
-        mkdir -p "$vd"
-    fi
-done
-
-
 # macosx specific
 if [[ $(uname) = 'Darwin' ]]; then
     # if running os x
@@ -80,7 +72,7 @@ if [[ $(uname) = 'Darwin' ]]; then
         brew tap homebrew/games >/dev/null
 
         # checks that we have the base set of packages
-        for formula in bash links irssi mercurial nethack proxytunnel python python python source-highlight tinyproxy unnethack unrar vim vim watch wget wget python; do
+        for formula in bash links irssi mercurial netcat nethack proxytunnel python python python source-highlight tinyproxy unnethack unrar vim vim watch wget wget python; do
             if [[ -z $(brew which $formula) ]]; then
                 # installs package if not already installed
                 brew install $formula
