@@ -56,21 +56,29 @@ for vd in "${HOME}/.vim/backups" "${HOME}/vim/swaps"; do
     fi
 done
 
+# sublime text settings
+#
+st_settings_homes=( "$HOME/Library/Application Support/Sublime Text 2" "$HOME/.config/sublime-text-3" )
+
+for st_settings_home in "${st_settings_homes[@]}"; do
+    if [[ -d "$st_settings_home/Packages/User" ]]; then
+        st_user_settings_path=""${st_settings_home}/Packages/User""
+    fi
+done
+
+if [[ $st_user_settings_path ]]; then
+    cpln "conf/sublime-text-3/Preferences.sublime-settings" "${st_user_settings_path}"
+
+    st_settings_filename=Preferences.sublime-settings
+    st_settings_path="${st_user_settings_path}/${st_settings_filename}"
+
+    cpln "conf/sublime-text-3/Preferences.sublime-settings" "${st_settings_path}"
+fi
+
 
 # macosx specific
 if [[ $(uname) = 'Darwin' ]]; then
     # if running os x
-
-    # writes sublime text 2 preferences (macosx only for now)
-    st2_settings_home="$HOME/Library/Application Support/Sublime Text 2/Packages/User"
-    if [[ -d $st2_settings_home ]]; then
-        cpln "conf/sublime-text-2/Preferences.sublime-settings" "${st2_settings_home}"
-
-        st2_settings_filename=Preferences.sublime-settings
-        st2_settings_path="${st2_settings_home}/${st2_settings_filename}"
-
-        cpln "conf/sublime-text-2/Preferences.sublime-settings" "${st2_settings_path}"
-    fi
 
     # sets up brew
     if which -s brew; then
