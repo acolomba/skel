@@ -50,7 +50,7 @@ done
 shift $(expr $OPTIND - 1)
 
 # sublime text settings
-st_settings_homes=( "$HOME/Library/Application Support/Sublime Text 2" "$HOME/.config/sublime-text-3" )
+st_settings_homes=( "$HOME/Library/Application Support/Sublime Text 3" "$HOME/.config/sublime-text-3" )
 
 for st_settings_home in "${st_settings_homes[@]}"; do
     if [[ -d "$st_settings_home/Packages/User" ]]; then
@@ -80,7 +80,7 @@ if [[ $(uname) = 'Darwin' ]]; then
         brew tap homebrew/games >/dev/null
 
         # checks that we have the base set of packages
-        for formula in bash links irssi mercurial netcat nethack proxytunnel python python python source-highlight tinyproxy unnethack unrar vim vim watch wget wget python; do
+        for formula in bash links irssi mercurial nethack proxytunnel python python python source-highlight tinyproxy unnethack unrar vim vim watch wget wget python; do
             if [[ -z $(brew which $formula) ]]; then
                 # installs package if not already installed
                 brew install $formula
