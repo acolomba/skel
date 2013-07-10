@@ -32,10 +32,13 @@ export HISTIGNORE="bg:fg:rm *:exit"
 # completion
 for prefix in "${prefixes[@]}"; do
     if [[ -f ${prefix}/etc/bash_completion ]]; then
-        # no expansion of cd ~
-        complete -r cd
+        . ${prefix}/etc/bash_completion
     fi
 done
+
+# no expansion of cd ~
+complete -r cd
+
 
 # python in local
 if [[ -d /usr/local/lib/python ]]; then
@@ -77,3 +80,4 @@ fi
 
 # sources bashrc for login shells
 [[ -f ~/.bashrc ]] && shopt login_shell >/dev/null && . ~/.bashrc
+
