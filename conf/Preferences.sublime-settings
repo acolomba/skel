@@ -1,0 +1,12 @@
+{
+	"color_scheme": "Packages/Color Scheme - Default/Mac Classic.tmTheme",
+    "translate_tabs_to_spaces": true,
+    "word_wrap": "true",
+    "highlight_line": true,
+    "caret_style": "smooth",
+    "indent_guide_options": ["draw_normal"],
+    "trim_trailing_white_space_on_save": true,
+    "ensure_newline_at_eof_on_save": true,
+    "drag_text": false,
+    "highlight_modified_tabs": true,
+}
