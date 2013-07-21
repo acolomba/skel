@@ -80,4 +80,3 @@ fi
 
 # sources bashrc for login shells
 [[ -f ~/.bashrc ]] && shopt login_shell >/dev/null && . ~/.bashrc
-

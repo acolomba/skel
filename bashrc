@@ -1,4 +1,4 @@
-#shopt login_shell >/dev/null || . ~/.bash_profile
+shopt login_shell >/dev/null || . ~/.bash_profile
 
 #export HISTCONTROL=ignoredups
 #export HISTCONTROL=ignoreboth
