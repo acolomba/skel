@@ -38,7 +38,7 @@ cpln() {
     fi
 }
 
-dotfiles=( bash_profile bashrc inputrc nethackrc screenrc vimrc )
+dotfiles=( ackrc bash_profile bashrc inputrc nethackrc screenrc vimrc )
 umask 0077
 
 for df in "${dotfiles[@]}"; do
