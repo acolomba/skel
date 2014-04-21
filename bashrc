@@ -108,10 +108,10 @@ done
 # suffix depends on privs
 if [[ $(id -u) == 0 ]]; then
     # pound for root
-    prompt_suffix="#"
+    prompt_suffix="\342\230\240"
 else
     # gt otherwise
-    prompt_suffix=">"
+    prompt_suffix="\342\234\255"
 fi
 
 # some colors
