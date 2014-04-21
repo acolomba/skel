@@ -70,6 +70,7 @@ alias scr="screen -d -RR"
 # tunnels ssh through a local socks
 alias sssh="ssh -o 'ProxyCommand connect -S 127.0.0.1:20000 %h %p'"
 alias sscp="scp -o 'ProxyCommand connect -S 127.0.0.1:20000 %h %p'"
+alias ssftp="sftp -o 'ProxyCommand connect -S 127.0.0.1:20000 %h %p'"
 
 
 # links through a local socks
