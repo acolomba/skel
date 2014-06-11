@@ -33,6 +33,8 @@ export HISTIGNORE="bg:fg:rm *:exit"
 for prefix in "${prefixes[@]}"; do
     if [[ -f ${prefix}/etc/bash_completion ]]; then
         . ${prefix}/etc/bash_completion
+    elif [[ -f ${prefix}/share/bash-completion/bash_completion ]]; then
+        . ${prefix}/share/bash-completion/bash_completion
     fi
 done
 
