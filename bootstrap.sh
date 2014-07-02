@@ -73,21 +73,26 @@ if [[ $(uname) = 'Darwin' ]]; then
     # if running os x
 
     # sets up brew
-    if which -s brew; then
-        # if brew installed...
-
-        # taps
-        brew tap homebrew/games >/dev/null
-
-        # checks that we have the base set of packages
-        for formula in ack autojump bash bash-completion2 connect git links mercurial nethack proxytunnel python python python source-highlight tinyproxy unnethack unrar vim watch wget python; do
-            if [[ -z $(brew which $formula) ]]; then
-                # installs package if not already installed
-                brew install $formula
-            fi
-        done
-    else
-        # or warns it's not yet installed
-        echo >&2 "WARN: brew is not installed. Install with: 'ruby -e \"\$(curl -fsSL https://raw.github.com/mxcl/homebrew/go)\"' and run $0 again."
+    if ! which -s brew; then
+        ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)" || exit 1
     fi
+
+    # taps
+    brew tap homebrew/games >/dev/null
+
+    # installs the base set of packages
+    for formula in ack autojump bash bash-completion2 brew-cask git links mercurial nethack proxytunnel python python python source-highlight unnethack unrar vim watch wget python; do
+        if ! brew 2>/dev/null list --versions $formula |grep >/dev/null '^'; then
+            # installs package if not already installed
+            brew install $formula
+        fi
+    done
+
+    # installs mac apps via brew cask
+    for formula in cord firefox flux google-chrome google-earth grandperspective istat-menus harvest keyremap4macbook mailplane seil sourcetree spotify virtualbox; do
+        if ! brew cask 2>/dev/null list $formula |grep >/dev/null '^'; then
+            # installs app if not installed already
+            brew cask install $formula
+        fi
+    done
 fi
