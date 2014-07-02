@@ -60,25 +60,5 @@ for prefix in "${prefixes[@]}"; do
     fi
 done
 
-# trn
-export TRNINIT="-x6ms  +e -m=s -S -XX -B -p"
-export REPLYTO="\`echo '@c010mb@!gm@i1.c0m' |tr '!@01' '@aol'\`"
-
-
-# frotz
-if [[ -d ~/Applications/infocom ]]; then
-    export ZCODE_PATH=~/Applications/infocom
-fi
-
-# if running on Lion, unhides the ~/Library folder
-if [[ $(uname) = 'Darwin' ]]; then
-    # picks up the os x version
-    sw_vers=$(sw_vers |awk '/ProductVersion/ {print $2}' |sed 's/\([0-9]*\.[0-9]*\)\.[0-9]*/\1/')
-
-    if [[ $sw_vers = '10.7' || $sw_vers = '10.8' ]]; then
-        chflags nohidden ~/Library
-    fi
-fi
-
 # sources bashrc for login shells
 [[ -f ~/.bashrc ]] && shopt login_shell >/dev/null && . ~/.bashrc
