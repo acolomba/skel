@@ -81,7 +81,7 @@ if [[ $(uname) = 'Darwin' ]]; then
     brew tap homebrew/games >/dev/null
 
     # installs the base set of packages
-    for formula in ack autojump bash bash-completion2 brew-cask git links mercurial nethack proxytunnel python python python source-highlight unnethack unrar vim watch wget python; do
+    for formula in ack autojump bash bash-completion2 brew-cask git links mercurial nethack proxytunnel python source-highlight tig unnethack unrar vim watch wget; do
         if ! brew 2>/dev/null list --versions $formula |grep >/dev/null '^'; then
             # installs package if not already installed
             brew install $formula
