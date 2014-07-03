@@ -78,6 +78,7 @@ if [[ $(uname) = 'Darwin' ]]; then
     fi
 
     # taps
+    brew tap caskroom/cask >/dev/null
     brew tap homebrew/games >/dev/null
 
     # installs the base set of packages
