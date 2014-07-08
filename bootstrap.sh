@@ -80,6 +80,8 @@ if [[ $(uname) = 'Darwin' ]]; then
     # taps
     brew tap caskroom/cask >/dev/null
     brew tap homebrew/games >/dev/null
+    brew tap homebrew/versions >/dev/null
+    brew tap caskroom/cask >/dev/null
 
     # installs the base set of packages
     for formula in ack autojump bash bash-completion2 brew-cask git links mercurial nethack proxytunnel python source-highlight tig unnethack unrar vim watch wget; do
