@@ -38,16 +38,48 @@ cpln() {
     fi
 }
 
-dotfiles=( ackrc bash_profile bashrc inputrc nethackrc screenrc vimrc )
+# copies all the dotfiles to the home directorhy
 umask 0077
-
-for df in "${dotfiles[@]}"; do
-    dst_df="${HOME}/.${df}"
+for df in dotfiles/*; do
+    dst_df="${HOME}/.$(basename "${df}")"
 
     cpln "${df}" "${dst_df}"
 done
 
-shift $(expr $OPTIND - 1)
+# brew (os x only)
+if [[ $(uname) = 'Darwin' ]]; then
+    # if running os x
+
+    # sets up brew
+    if ! which -s brew; then
+        ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)" || exit 1
+    fi
+
+    # taps
+    while read -u 42 tap; do
+        if [[ ! -z ${tap} ]]; then
+            echo "Tapping ${tap}"
+            brew tap "${tap}"
+        fi
+    done 42<packages/homebrew/taps
+
+
+    # installs the base set of packages
+    while read -u 42 formula; do
+        if ! brew 2>/dev/null list --versions "${formula}" |grep >/dev/null '^'; then
+            # if formula not already installed, installs it
+            brew install "${formula}"
+        fi
+    done 42<packages/homebrew/formulae
+
+    # installs mac apps via brew cask
+    while read -u 42 formula; do
+        if ! brew cask 2>/dev/null list "${formula}" |grep >/dev/null '^'; then
+            # if app not already installed, installs it
+            brew cask install "${formula}"
+        fi
+    done 42<packages/homebrew/casks
+fi
 
 # sublime text settings
 st_settings_homes=( "$HOME/Library/Application Support/Sublime Text 3" "$HOME/.config/sublime-text-3" )
@@ -65,37 +97,4 @@ if [[ $st_user_settings_path ]]; then
     st_settings_path="${st_user_settings_path}/${st_settings_filename}"
 
     cpln "conf/sublime-text-3/Preferences.sublime-settings" "${st_settings_path}"
-fi
-
-
-# macosx specific
-if [[ $(uname) = 'Darwin' ]]; then
-    # if running os x
-
-    # sets up brew
-    if ! which -s brew; then
-        ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)" || exit 1
-    fi
-
-    # taps
-    brew tap caskroom/cask >/dev/null
-    brew tap homebrew/games >/dev/null
-    brew tap homebrew/versions >/dev/null
-    brew tap caskroom/cask >/dev/null
-
-    # installs the base set of packages
-    for formula in ack autojump bash bash-completion2 brew-cask git links mercurial nethack proxytunnel python source-highlight tig unnethack unrar vim watch wget; do
-        if ! brew 2>/dev/null list --versions $formula |grep >/dev/null '^'; then
-            # installs package if not already installed
-            brew install $formula
-        fi
-    done
-
-    # installs mac apps via brew cask
-    for formula in cord firefox flux google-chrome google-earth grandperspective istat-menus harvest keyremap4macbook mailplane seil sourcetree spotify virtualbox; do
-        if ! brew cask 2>/dev/null list $formula |grep >/dev/null '^'; then
-            # installs app if not installed already
-            brew cask install $formula
-        fi
-    done
 fi
