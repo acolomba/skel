@@ -14,6 +14,7 @@ Sound -> Sound Effects -> Show volume in menu bar (select)
 Sharing -> Computer Name: snoopy
 Sharing -> Remote Login -> (selected, only administrators)
 Sharing > Users & Groups > Guest User -> Allow guests to log in to this computer (deselect)
+Date & Time > Show date (selected)
 Accessibility -> Display -> Increase contrast
 Accessibility -> Display -> Reduce transparency
 

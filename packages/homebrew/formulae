@@ -2,7 +2,9 @@ ack
 bash
 bash-completion2
 brew-cask
+flash
 git
+java
 links
 mercurial
 nethack
@@ -10,6 +12,7 @@ proxytunnel
 python
 source-highlight
 tig
+tomcat
 unnethack
 unrar
 vagrant-completion
