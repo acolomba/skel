@@ -1,2 +1,4 @@
 # pom files
 --type-set=pom:is:pom.xml
+--context=3
+--ignore-dir=target
