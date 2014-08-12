@@ -6,6 +6,7 @@ Dock -> Animate opening applications (deselect)
 Mission Control -> Displays have separate Spaces —> (deselect)
 Security & Privacy -> General -> Require password -> 5 minutes after sleep
 Security & Privacy -> General -> Allow apps downloaded from: -> Anywhere
+Energy Saver -> Power Adapter -> Prevent computer from sleeping automatically when the display is off (selected)
 Keyboard -> Modifier Keys… -> Caps Lock Key: Control
 Keyboard -> Shortcuts -> Full Keyboard Access… -> All controls
 Trackpad -> Point & Click -> Tap to click
