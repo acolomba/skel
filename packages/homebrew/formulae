@@ -2,9 +2,7 @@ ack
 bash
 bash-completion2
 brew-cask
-flash
 git
-java
 links
 mercurial
 nethack
@@ -19,3 +17,4 @@ vagrant-completion
 vim
 watch
 wget
+
