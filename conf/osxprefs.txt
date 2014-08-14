@@ -8,13 +8,17 @@ Security & Privacy -> General -> Require password -> 5 minutes after sleep
 Security & Privacy -> General -> Allow apps downloaded from: -> Anywhere
 Energy Saver -> Power Adapter -> Prevent computer from sleeping automatically when the display is off (selected)
 Keyboard -> Modifier Keys… -> Caps Lock Key: Control
-Keyboard -> Shortcuts -> Full Keyboard Access… -> All controls
+Keyboard -> Text -> Correct spelling automatically (delesect)
+Keyboard -> Text -> Use smart quotes and dashes (deselect)
+Keyboard -> Shortcuts -> Full Keyboard Access... -> All controls
 Trackpad -> Point & Click -> Tap to click
 Trackpad -> Scroll & Zoom -> Scroll direction: natural (deselect)
 Sound -> Sound Effects -> Show volume in menu bar (select)
 Sharing -> Computer Name: snoopy
 Sharing -> Remote Login -> (selected, only administrators)
 Sharing > Users & Groups > Guest User -> Allow guests to log in to this computer (deselect)
+Dictation & Speech -> Dictation -> Dictation On (Use Enhanced Dictation)
+Dictation & Speech -> Text to Speech -> System Voice: -> Customize -> Alex -> Enhanced Quality
 Date & Time > Show date (selected)
 Accessibility -> Display -> Increase contrast
 Accessibility -> Display -> Reduce transparency
