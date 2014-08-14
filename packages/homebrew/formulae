@@ -10,6 +10,7 @@ proxytunnel
 python
 source-highlight
 tig
+terminal-notifier
 tomcat
 unnethack
 unrar
@@ -17,4 +18,3 @@ vagrant-completion
 vim
 watch
 wget
-
