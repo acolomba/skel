@@ -50,10 +50,10 @@ fi
 # editor
 export EDITOR=vim
 
-# pager
+# pager options
 export LESS="$LESS -i -F -R -X"
 
-# pager syntax highlighting if available (/dev/null instead of -s for compatibility)
+# pager syntax highlighting if available
 for prefix in "${prefixes[@]}"; do
     if [[ -x ${prefix}/bin/src-hilite-lesspipe.sh ]]; then
         export LESSOPEN="| ${prefix}/bin/src-hilite-lesspipe.sh %s"
@@ -62,3 +62,4 @@ done
 
 # sources bashrc for login shells
 [[ -f ~/.bashrc ]] && shopt login_shell >/dev/null && . ~/.bashrc
+

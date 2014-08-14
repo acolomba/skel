@@ -58,22 +58,17 @@ man() {
     man "$@"
 }
 
-# autojump
-prefixes=( /usr/local )
-[[ -s /usr/local/etc/autojump.sh ]] && . /usr/local/etc/autojump.sh
-
 
 # screen helper that will always try to reattach to some detached session
 alias scr="screen -d -RR"
 
 
-# tunnels ssh through a local socks
+# tunnels ssh through a local socks at port 20000
 alias sssh="ssh -o 'ProxyCommand connect -S 127.0.0.1:20000 %h %p'"
 alias sscp="scp -o 'ProxyCommand connect -S 127.0.0.1:20000 %h %p'"
 alias ssftp="sftp -o 'ProxyCommand connect -S 127.0.0.1:20000 %h %p'"
 
-
-# links through a local socks
+# links through a local socks at port 20000
 alias slinks="links -socks-proxy localhost:20000"
 
 
@@ -111,7 +106,7 @@ if [[ $(id -u) == 0 ]]; then
     # pound for root
     prompt_suffix="\342\230\240"
 else
-    # gt otherwise
+    # symbol otherwise
     prompt_suffix="\342\234\255"
 fi
 
@@ -132,9 +127,8 @@ case $TERM in
 esac
 
 
-# umask
+# set files to be rwx for owner only
 umask 077
 
 # cd home
 cd
-
