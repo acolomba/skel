@@ -4,6 +4,10 @@ Desktop & Screen Saver -> Desktop -> Translucent menu bar (deselect)
 Desktop & Screen Saver -> Screen Saver -> Start after -> Never
 Dock -> Animate opening applications (deselect)
 Mission Control -> Displays have separate Spaces —> (deselect)
+Mission Control -> Keyboard and Mouse Shortcuts -> Mission Control: -> -
+Mission Control -> Keyboard and Mouse Shortcuts -> Application Windows: -> -
+Mission Control -> Keyboard and Mouse Shortcuts -> Show Desktop: -> -
+Mission Control -> Keyboard and Mouse Shortcuts -> Show Dashboard: -> -
 Security & Privacy -> General -> Require password -> 5 minutes after sleep
 Security & Privacy -> General -> Allow apps downloaded from: -> Anywhere
 Energy Saver -> Power Adapter -> Prevent computer from sleeping automatically when the display is off (selected)
