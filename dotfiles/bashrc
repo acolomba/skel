@@ -58,10 +58,8 @@ man() {
     man "$@"
 }
 
-
 # screen helper that will always try to reattach to some detached session
 alias scr="screen -d -RR"
-
 
 # tunnels ssh through a local socks at port 20000
 alias sssh="ssh -o 'ProxyCommand connect -S 127.0.0.1:20000 %h %p'"
@@ -71,15 +69,24 @@ alias ssftp="sftp -o 'ProxyCommand connect -S 127.0.0.1:20000 %h %p'"
 # links through a local socks at port 20000
 alias slinks="links -socks-proxy localhost:20000"
 
-
 # tinyproxy
 alias tinyproxy-start="sudo tinyproxy -c ~/etc/tinyproxy.conf"
 alias tinyproxy-stop="sudo killall tinyproxy"
 
-
 # airport command on os x
 if [[ $(uname) = 'Darwin' ]]; then
     alias airport="/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport"
+fi
+
+# p4merge
+if [[ $(uname) = 'Darwin' ]]; then
+    app_prefixes=( "$HOME/Applications" "/Applications" )
+    for app_prefix in "${app_prefixes[@]}"; do
+        p4merge_location="${app_prefix}/p4merge.app/Contents/Resources/launchp4merge"
+        if [[ -x ${p4merge_location} ]]; then
+            alias p4merge="${p4merge_location}"
+        fi
+    done
 fi
 
 
