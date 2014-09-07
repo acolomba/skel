@@ -8,19 +8,24 @@ Mission Control -> Keyboard and Mouse Shortcuts -> Mission Control: -> -
 Mission Control -> Keyboard and Mouse Shortcuts -> Application Windows: -> -
 Mission Control -> Keyboard and Mouse Shortcuts -> Show Desktop: -> -
 Mission Control -> Keyboard and Mouse Shortcuts -> Show Dashboard: -> -
+Mission Control -> Hot Corners... -> Bottom Left -> Desktop
 Security & Privacy -> General -> Require password -> 5 minutes after sleep
 Security & Privacy -> General -> Allow apps downloaded from: -> Anywhere
+Security & Privacy -> Privacy -> Location Services -> System Services -> Details... -> Show location icon in menu bar when System Services request your location
 Energy Saver -> Power Adapter -> Prevent computer from sleeping automatically when the display is off (selected)
 Keyboard -> Modifier Keys… -> Caps Lock Key: Control
 Keyboard -> Text -> Correct spelling automatically (delesect)
 Keyboard -> Text -> Use smart quotes and dashes (deselect)
+Keyboard -> Shortcuts -> Launchpad & Dock -> Turn Dock Hiding On/Off (deselect)
 Keyboard -> Shortcuts -> Full Keyboard Access... -> All controls
 Trackpad -> Point & Click -> Tap to click
 Trackpad -> Scroll & Zoom -> Scroll direction: natural (deselect)
 Sound -> Sound Effects -> Show volume in menu bar (select)
+Sound -> Sound Effects -> Play feedback when volume is changed
 Sharing -> Computer Name: snoopy
 Sharing -> Remote Login -> (selected, only administrators)
 Sharing > Users & Groups > Guest User -> Allow guests to log in to this computer (deselect)
+Users & Groups -> Login Options -> Show fast user switching menu as: Icon
 Dictation & Speech -> Dictation -> Dictation On (Use Enhanced Dictation)
 Dictation & Speech -> Text to Speech -> System Voice: -> Customize -> Alex -> Enhanced Quality
 Date & Time > Show date (selected)
