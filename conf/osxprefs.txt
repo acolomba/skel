@@ -12,6 +12,9 @@ Mission Control -> Hot Corners... -> Bottom Left -> Desktop
 Security & Privacy -> General -> Require password -> 5 minutes after sleep
 Security & Privacy -> General -> Allow apps downloaded from: -> Anywhere
 Security & Privacy -> Privacy -> Location Services -> System Services -> Details... -> Show location icon in menu bar when System Services request your location
+Spotlight -> Search Results -> Spotlight Suggestions (disable)
+Spotlight -> Search Results -> Bing Web Searches (disable)
+Spotlight -> Privacy -> VirtualBox VMs
 Energy Saver -> Power Adapter -> Prevent computer from sleeping automatically when the display is off (selected)
 Keyboard -> Modifier Keys… -> Caps Lock Key: Control
 Keyboard -> Text -> Correct spelling automatically (delesect)
@@ -37,6 +40,7 @@ General -> New windows open with: Empty Page
 General -> New tabs open with: Empty Page
 General -> Homepage -> (blank)
 Search -> Search engine: DuckDuckGo
+Smart Search Field: Include Spotlight Suggestions -> (deselect)
 Smart Search Field: Preload Top Hit in the background -> (deselect)
 AutoFill (disable all)
 
@@ -48,3 +52,7 @@ Finder Views
 Sort By: Name
 Show Library Folder
 Use as Defaults
+
+Finder (menu)
+View -> Show Path Bar
+View -> Show Status Bar
