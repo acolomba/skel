@@ -70,8 +70,22 @@ alias ssftp="sftp -o 'ProxyCommand connect -S 127.0.0.1:20000 %h %p'"
 alias slinks="links -socks-proxy localhost:20000"
 
 # tinyproxy
-alias tinyproxy-start="sudo tinyproxy -c ~/etc/tinyproxy.conf"
-alias tinyproxy-stop="sudo killall tinyproxy"
+
+# starts tinyproxy with a configuration in ~/etc. a suffix is optionally
+# specified to point to a particular config file
+tinyproxy-start() {
+    suffix=${1:+-${1}}
+
+    sudo tinyproxy -c "${HOME}/etc/tinyproxy${suffix}.conf"
+}
+
+# stops tinyproxy; assumes that tinyproxy{$suffix}.conf specified a pid file
+# in /tmp/tinyproxy${suffix}.
+tinyproxy-stop() {
+    suffix=${1:+-${1}}
+
+    sudo kill $(sudo cat "/tmp/tinyproxy${suffix}.pid")
+}
 
 # airport command on os x
 if [[ $(uname) = 'Darwin' ]]; then

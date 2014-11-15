@@ -15,10 +15,12 @@ if [[ $BASH_VERSINFO != "4" ]]; then
     done
 fi
 
-for prefix in "${prefixes[@]}"; do
-    if [[ -d ${prefix}/bin ]]; then
-        export PATH="${prefix}/bin:${PATH}"
-    fi
+for bin_directory in bin sbin; do
+    for prefix in "${prefixes[@]}"; do
+        if [[ -d ${prefix}/${bin_directory} ]]; then
+            export PATH="${prefix}/${bin_directory}:${PATH}"
+        fi
+    done
 done
 
 # own bins
@@ -40,12 +42,6 @@ done
 
 # no expansion of cd ~
 complete -r cd
-
-
-# python in local
-if [[ -d /usr/local/lib/python ]]; then
-    export PYTHONPATH=/usr/local/lib/python
-fi
 
 # editor
 export EDITOR=vim
