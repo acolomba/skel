@@ -1,7 +1,9 @@
 ack
+autossh
 bash
 bash-completion2
 brew-cask
+cloc
 flac
 git
 lame
@@ -13,6 +15,7 @@ nodejs
 proxytunnel
 python
 source-highlight
+svn
 tig
 terminal-notifier
 tomcat
