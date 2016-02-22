@@ -71,14 +71,6 @@ if [[ $(uname) = 'Darwin' ]]; then
             brew install "${formula}"
         fi
     done 42<packages/homebrew/formulae
-
-    # installs mac apps via brew cask
-    while read -u 42 formula; do
-        if ! brew cask 2>/dev/null list "${formula}" |grep >/dev/null '^'; then
-            # if app not already installed, installs it
-            brew cask install "${formula}"
-        fi
-    done 42<packages/homebrew/casks
 fi
 
 # sublime text settings
