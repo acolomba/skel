@@ -69,24 +69,6 @@ alias ssftp="sftp -o 'ProxyCommand connect -S 127.0.0.1:20000 %h %p'"
 # links through a local socks at port 20000
 alias slinks="links -socks-proxy localhost:20000"
 
-# tinyproxy
-
-# starts tinyproxy with a configuration in ~/etc. a suffix is optionally
-# specified to point to a particular config file
-tinyproxy-start() {
-    suffix=${1:+-${1}}
-
-    sudo tinyproxy -c "${HOME}/etc/tinyproxy${suffix}.conf"
-}
-
-# stops tinyproxy; assumes that tinyproxy{$suffix}.conf specified a pid file
-# in /tmp/tinyproxy${suffix}.
-tinyproxy-stop() {
-    suffix=${1:+-${1}}
-
-    sudo kill $(sudo cat "/tmp/tinyproxy${suffix}.pid")
-}
-
 # airport command on os x
 if [[ $(uname) = 'Darwin' ]]; then
     alias airport="/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport"
@@ -153,3 +135,6 @@ umask 077
 
 # cd home
 cd
+
+# sources local bashrc
+[[ -r ~/.bashrc_local ]] && . ~/.bashrc_local
