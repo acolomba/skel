@@ -52,7 +52,7 @@ if [[ $(uname) = 'Darwin' ]]; then
 
     # sets up brew
     if ! which -s brew; then
-        ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)" || exit 1
+        ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" || exit 1
     fi
 
     # taps
