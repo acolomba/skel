@@ -56,8 +56,9 @@ for prefix in "${prefixes[@]}"; do
     fi
 done
 
+# sources local profile
+[[ -r ~/.bash_profile_local ]] && . ~/.bash_profile_local
+
 # sources bashrc for login shells
 [[ -f ~/.bashrc ]] && shopt login_shell >/dev/null && . ~/.bashrc
 
-# sources local profile
-[[ -r ~/.bash_profile_local ]] && . ~/.bash_profile_local
