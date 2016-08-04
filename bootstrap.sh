@@ -46,32 +46,43 @@ for df in dotfiles/*; do
     cpln "${df}" "${dst_df}"
 done
 
-# brew (os x only)
-if [[ $(uname) = 'Darwin' ]]; then
-    # if running os x
-
-    # sets up brew
-    if ! which -s brew; then
-        ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" || exit 1
-    fi
-
-    # taps
-    while read -u 42 tap; do
-        if [[ ! -z ${tap} ]]; then
-            echo "Tapping ${tap}"
-            brew tap "${tap}"
+case $(uname) in
+    Darwin)
+        # sets up brew
+        if ! which -s brew; then
+            ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" || exit 1
         fi
-    done 42<packages/homebrew/taps
+
+        # taps
+        while read -u 42 tap; do
+            if [[ ! -z ${tap} ]]; then
+                echo "Tapping ${tap}"
+                brew tap "${tap}"
+            fi
+        done 42<packages/homebrew/taps
 
 
-    # installs the base set of packages
-    while read -u 42 formula; do
-        if ! brew 2>/dev/null list --versions "${formula}" |grep >/dev/null '^'; then
-            # if formula not already installed, installs it
-            brew install "${formula}"
+        # installs the base set of packages
+        while read -u 42 formula; do
+            if ! brew 2>/dev/null list --versions "${formula}" |grep >/dev/null '^'; then
+                # if formula not already installed, installs it
+                brew install "${formula}"
+            fi
+        done 42<packages/homebrew/formulae
+        ;;
+
+    Linux)
+        # makes sure it's a standard base distro
+        if which lsb_release >/dev/null; then
+            case $(lsb_release -s -i) in
+                Debian|Ubuntu)
+                    sudo apt-get install $(cat packages/apt/packages)
+                ;;
+            esac
         fi
-    done 42<packages/homebrew/formulae
-fi
+    ;;
+esac
+
 
 # sublime text settings
 st_settings_homes=( "$HOME/Library/Application Support/Sublime Text 3" "$HOME/.config/sublime-text-3" )
