@@ -1,7 +1,28 @@
-shopt login_shell >/dev/null || . ~/.bash_profile
+# prefixes of installed software, config, etc.
+# ( system local/homebrew macports ipkg )
+# NOTE some systems have /usr/local/bin in the path already, but here we want
+# to make sure it's before other system-defined path entries
+prefixes=( "" /usr/local /opt/local /opt )
 
-#export HISTCONTROL=ignoredups
-#export HISTCONTROL=ignoreboth
+# if not running bash 4, tries to find one and launches it with the same options
+if [[ $BASH_VERSINFO != "4" ]]; then
+    for prefix in "${prefixes[@]}"; do
+        if [[ -x ${prefix}/bin/bash && $(${prefix}/bin/bash -c 'echo $BASH_VERSINFO') = "4" ]]; then
+            exec ${prefix}/bin/bash -$-
+        fi
+   done
+fi
+
+# completion; this runs only on 4
+if [[ $BASH_VERSINFO = "4" ]]; then
+    for prefix in "${prefixes[@]}"; do
+        if [[ -f ${prefix}/etc/bash_completion ]]; then
+            . ${prefix}/etc/bash_completion
+        elif [[ -f ${prefix}/share/bash-completion/bash_completion ]]; then
+            . ${prefix}/share/bash-completion/bash_completion
+        fi
+    done
+fi
 
 # appends to the histfile instead of overwriting
 shopt -s histappend
@@ -18,7 +39,6 @@ shopt -s autocd 2> /dev/null
 
 # allows recursive globbing via **
 shopt -s globstar 2> /dev/null
-
 
 # minor  errors in the spelling of a directory component in a cd command will
 # be corrected
@@ -69,13 +89,15 @@ alias ssftp="sftp -o 'ProxyCommand connect -S 127.0.0.1:20000 %h %p'"
 # links through a local socks at port 20000
 alias slinks="links -socks-proxy localhost:20000"
 
-# airport command on os x
+# macos-only commands
 if [[ $(uname) = 'Darwin' ]]; then
+    # airport command
     alias airport="/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport"
-fi
 
-# p4merge
-if [[ $(uname) = 'Darwin' ]]; then
+    # cpu warm-up
+    alias warmup='parallel yes ::: $(seq $(sysctl -n hw.ncpu)) >/dev/null'
+
+    # p4merge
     app_prefixes=( "$HOME/Applications" "/Applications" )
     for app_prefix in "${app_prefixes[@]}"; do
         p4merge_location="${app_prefix}/p4merge.app/Contents/Resources/launchp4merge"
@@ -85,10 +107,8 @@ if [[ $(uname) = 'Darwin' ]]; then
     done
 fi
 
-
 # xargs with one parameter only
 alias xargs1="xargs -n 1"
-
 
 # bash prompt
 
@@ -104,13 +124,13 @@ for username in "${usernames[@]}"; do
     fi
 done
 
-# suffix depends on privs
+# suffix depends on identity
 if [[ $(id -u) == 0 ]]; then
     # pound for root
-    prompt_suffix="\342\230\240"
+    prompt_suffix="#"
 else
     # symbol otherwise
-    prompt_suffix="\342\234\255"
+    prompt_suffix=">"
 fi
 
 # some colors
@@ -128,7 +148,6 @@ case $TERM in
         export PROMPT_COMMAND='echo -n -e "\033k\033\\"'
         ;;
 esac
-
 
 # set files to be rwx for owner only
 umask 077
