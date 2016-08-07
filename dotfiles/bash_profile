@@ -16,7 +16,7 @@ export EDITOR=vim
 export LESS="$LESS -i -F -R -X"
 
 # pager syntax highlighting if available
-if which "src-hilite-lesspipe.sh" >/dev/null; then
+if which "src-hilite-lesspipe.sh" >/dev/null 2>/dev/null; then
     export LESSOPEN="| src-hilite-lesspipe.sh %s"
 fi
 
