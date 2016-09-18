@@ -34,7 +34,7 @@ cpln() {
         fi
 
         # .. and copies the file
-        cp "$1" "$2"
+        cp -r "$1" "$2"
     fi
 }
 
@@ -50,6 +50,7 @@ case $(uname) in
     Darwin)
         # sets up brew
         if ! which -s brew; then
+            umask 0022
             ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" || exit 1
         fi
 
@@ -83,6 +84,13 @@ case $(uname) in
     ;;
 esac
 
+# installs mac apps via brew cask
+while read -u 42 formula; do
+    if ! brew cask 2>/dev/null list "${formula}" |grep >/dev/null '^'; then
+        # if app not already installed, installs it
+        brew cask install "${formula}"
+    fi
+done 42<packages/homebrew/casks
 
 # sublime text settings
 st_settings_homes=( "$HOME/Library/Application Support/Sublime Text 3" "$HOME/.config/sublime-text-3" )
