@@ -1,4 +1,5 @@
 airfoil
+anaconda
 applepi-baker
 audio-hijack
 bartender
@@ -8,17 +9,17 @@ calibre
 cleanmymac
 controllermate
 controlplane
+dash
 dbvisualizer
 deluge
+docker
 dolphin
 dotnet
 dropbox
 firefox
 fission
 flux
-franz
-fredm-fuse
-gimp
+fs-uae
 google-chrome
 google-drive
 google-earth
@@ -27,6 +28,7 @@ harvest
 inkscape
 istat-menus
 iterm2
+kitematic
 kodi
 mailplane
 malwarebytes-anti-malware
@@ -37,6 +39,7 @@ p4merge
 plex-home-theater
 postman
 powershell
+retro-virtual-machine
 sequential
 sketchup
 skype
