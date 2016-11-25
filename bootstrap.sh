@@ -2,14 +2,20 @@
 
 cd $(dirname "$0") || exit 1
 
-# copies all the dotfiles to the home directorhy
+# copies all the dotfiles to the home directory
 umask 0077
 for df in dotfiles/*; do
     dst_df="${HOME}/.$(basename "${df}")"
 
-    cp -rf "${df}" "${dst_df}"
+    if [[ -f $df ]]; then
+        cp "${df}" "${dst_df}"
+    else
+        mkdir -p "${dst_df}"
+        (cd "${df}" && tar -cf - * |tar -xf - -C "${dst_df}")
+    fi
 done
 
+# installs packages
 case $(uname) in
     Darwin)
         # sets up brew
@@ -56,6 +62,7 @@ while read -u 42 formula; do
     fi
 done 42<packages/homebrew/casks
 
+# sublime settings home
 case $(uname) in
     Darwin)
         st_settings_home="$HOME/Library/Application Support/Sublime Text 3"
@@ -65,6 +72,7 @@ case $(uname) in
         ;;
 esac
 
+# writes sublime settings unless they already exist
 if [[ -d $st_settings_home ]]; then
     echo "Sublime settings already exist. Skipping."
 else
