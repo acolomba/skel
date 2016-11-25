@@ -2,48 +2,12 @@
 
 cd $(dirname "$0") || exit 1
 
-# parses cmdline options
-USAGE="Usage: $(basename $0) [-hl]"
-while getopts :hl opt; do
-    case $opt in
-        h)
-            echo $USAGE
-            exit 0
-            ;;
-        l)
-            link_only=1
-            ;;
-        \?)
-            echo >&2 $USAGE
-            exit 1
-            ;;
-    esac
-done
-
-# copies or links the file at $1 to the location at $2; both paths must be
-# filenames (i.e. no cp x d/), with $1 relative to this script's location
-cpln() {
-    if [[ $link_only ]]; then
-        # if requested to create links to dotfiles, does so
-        ln -sf "$(pwd)/$1" "$2"
-    else
-        # otherwise removes links (if any)...
-        if [[ -L $2 ]]; then
-            echo >&2 "Removing symlink $2"
-            rm "$2"
-        fi
-
-        # .. and copies the file
-        cp -r "$1" "$2"
-    fi
-}
-
 # copies all the dotfiles to the home directorhy
 umask 0077
 for df in dotfiles/*; do
     dst_df="${HOME}/.$(basename "${df}")"
 
-    cpln "${df}" "${dst_df}"
+    cp -rf "${df}" "${dst_df}"
 done
 
 case $(uname) in
@@ -86,26 +50,23 @@ esac
 
 # installs mac apps via brew cask
 while read -u 42 formula; do
-    if ! brew cask 2>/dev/null list "${formula}" |grep >/dev/null '^'; then
+    if ! brew cask list "${formula}" >/dev/null; then
         # if app not already installed, installs it
         brew cask install "${formula}"
     fi
 done 42<packages/homebrew/casks
 
-# sublime text settings
-st_settings_homes=( "$HOME/Library/Application Support/Sublime Text 3" "$HOME/.config/sublime-text-3" )
+case $(uname) in
+    Darwin)
+        st_settings_home="$HOME/Library/Application Support/Sublime Text 3"
+        ;;
+    Linux)
+        st_settings_home="$HOME/.config/sublime-text-3"
+        ;;
+esac
 
-for st_settings_home in "${st_settings_homes[@]}"; do
-    if [[ -d "$st_settings_home/Packages/User" ]]; then
-        st_user_settings_path=""${st_settings_home}/Packages/User""
-    fi
-done
-
-if [[ $st_user_settings_path ]]; then
-    cpln "conf/sublime-text-3/Preferences.sublime-settings" "${st_user_settings_path}"
-
-    st_settings_filename=Preferences.sublime-settings
-    st_settings_path="${st_user_settings_path}/${st_settings_filename}"
-
-    cpln "conf/sublime-text-3/Preferences.sublime-settings" "${st_settings_path}"
+if [[ -d $st_settings_home ]]; then
+    echo "Sublime settings already exist. Skipping."
+else
+    cp -rf "conf/sublime-text-3" "${st_settings_home}"
 fi
