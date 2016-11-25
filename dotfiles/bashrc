@@ -1,25 +1,10 @@
-# prefixes of installed software, config, etc.
-# ( system local/homebrew macports ipkg )
-# NOTE some systems have /usr/local/bin in the path already, but here we want
-# to make sure it's before other system-defined path entries
-prefixes=( "" /usr/local /opt/local /opt )
-
-# if not running bash 4, tries to find one and launches it with the same options
-if [[ $BASH_VERSINFO != "4" ]]; then
-    for prefix in "${prefixes[@]}"; do
-        if [[ -x ${prefix}/bin/bash && $(${prefix}/bin/bash -c 'echo $BASH_VERSINFO') = "4" ]]; then
-            exec ${prefix}/bin/bash -$-
-        fi
-   done
-fi
-
 # completion; this runs only on 4
 if [[ $BASH_VERSINFO = "4" ]]; then
-    for prefix in "${prefixes[@]}"; do
-        if [[ -f ${prefix}/etc/bash_completion ]]; then
-            . ${prefix}/etc/bash_completion
-        elif [[ -f ${prefix}/share/bash-completion/bash_completion ]]; then
-            . ${prefix}/share/bash-completion/bash_completion
+    for bin_prefix in "${_bin_prefixes[@]}"; do
+        if [[ -f ${bin_prefix}/etc/bash_completion ]]; then
+            . ${bin_prefix}/etc/bash_completion
+        elif [[ -f ${bin_prefix}/share/bash-completion/bash_completion ]]; then
+            . ${bin_prefix}/share/bash-completion/bash_completion
         fi
     done
 fi
@@ -81,14 +66,6 @@ man() {
 # screen helper that will always try to reattach to some detached session
 alias scr="screen -d -RR"
 
-# tunnels ssh through a local socks at port 20000
-alias sssh="ssh -o 'ProxyCommand connect -S 127.0.0.1:20000 %h %p'"
-alias sscp="scp -o 'ProxyCommand connect -S 127.0.0.1:20000 %h %p'"
-alias ssftp="sftp -o 'ProxyCommand connect -S 127.0.0.1:20000 %h %p'"
-
-# links through a local socks at port 20000
-alias slinks="links -socks-proxy localhost:20000"
-
 # macos-only commands
 if [[ $(uname) = 'Darwin' ]]; then
     # airport command
@@ -116,7 +93,7 @@ alias xargs1="xargs -n 1"
 prompt_host="\u@\h"
 
 # shortens prompt_host if known username
-usernames=( acolomba u1dc39 )
+usernames=( acolomba )
 for username in "${usernames[@]}"; do
     if [[ $USER = $username ]]; then
         # only host for my account
@@ -150,7 +127,7 @@ case $TERM in
 esac
 
 # set files to be rwx for owner only
-umask 077
+umask 0077
 
 # cd home
 cd
