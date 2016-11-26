@@ -23,9 +23,6 @@ export HISTSIZE=50000
 export HISTCONTROL="erasedups:ignoredups:ignorespace"
 export HISTIGNORE="bg:fg:rm *:exit"
 
-# no expansion of cd ~
-complete -r cd
-
 # editor
 export EDITOR=vim
 
