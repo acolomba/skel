@@ -40,6 +40,14 @@ case $(uname) in
                 brew install "${formula}"
             fi
         done 42<packages/homebrew/formulae
+
+        # installs mac apps via brew cask
+        while read -u 42 formula; do
+            if ! brew cask list "${formula}" >/dev/null; then
+                # if app not already installed, installs it
+                brew cask install "${formula}"
+            fi
+        done 42<packages/homebrew/casks
         ;;
 
     Linux)
@@ -53,14 +61,6 @@ case $(uname) in
         fi
     ;;
 esac
-
-# installs mac apps via brew cask
-while read -u 42 formula; do
-    if ! brew cask list "${formula}" >/dev/null; then
-        # if app not already installed, installs it
-        brew cask install "${formula}"
-    fi
-done 42<packages/homebrew/casks
 
 # sublime settings home
 case $(uname) in
