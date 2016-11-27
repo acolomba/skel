@@ -1,15 +1,14 @@
-export _bin_prefixes=( "" /usr/local /opt/local /opt )
-
 # if not running bash 4, tries to find one and launches it with the same options
 if [[ $BASH_VERSINFO != "4" ]]; then
-    for bin_prefix in "${_bin_prefixes[@]}"; do
-        if [[ -x ${bin_prefix}/bin/bash && $(${bin_prefix}/bin/bash -c 'echo $BASH_VERSINFO') = "4" ]]; then
-            # launches bash with same options as current bash, but respects
+    IFS=: read -a paths <<< "$PATH"
+    for path in "${paths[@]}"; do
+        if [[ -x ${path}/bash && $(${path}/bash -c 'echo $BASH_VERSINFO') = "4" ]]; then
+             # launches bash with same options as current bash, but respects
             # whether it's a login shell
             if shopt -q login_shell; then
-                exec ${bin_prefix}/bin/bash -$- -l
+                exec ${path}/bash -$- -l
             else
-                exec ${bin_prefix}/bin/bash -$-
+                exec ${path}/bash -$-
             fi
         fi
    done
