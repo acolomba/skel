@@ -1,48 +1,67 @@
 System Preferences
+General -> Use dark menu bar and Dock
+General -> Recent Items: None
+
+
 Desktop & Screen Saver -> Desktop -> Solid Aqua Dark Blue
-Desktop & Screen Saver -> Desktop -> Translucent menu bar (deselect)
 Desktop & Screen Saver -> Screen Saver -> Start after -> Never
+
 Dock -> Animate opening applications (deselect)
+
 Mission Control -> Displays have separate Spaces —> (deselect)
 Mission Control -> Keyboard and Mouse Shortcuts -> Mission Control: -> -
 Mission Control -> Keyboard and Mouse Shortcuts -> Application Windows: -> -
 Mission Control -> Keyboard and Mouse Shortcuts -> Show Desktop: -> -
 Mission Control -> Keyboard and Mouse Shortcuts -> Show Dashboard: -> -
 Mission Control -> Hot Corners... -> Bottom Left -> Desktop
-Security & Privacy -> General -> Require password -> 5 minutes after sleep
+Mission Control ->Allow Apple Watch to unlock your Mac: <select watch>
+
 Security & Privacy -> General -> Allow apps downloaded from: -> Anywhere
+Security & Privacy -> Firewall -> Turn On Firewall
+Security & Privacy -> Firewall Options.. -> Remote Login (SSH)
 Security & Privacy -> Privacy -> Location Services -> System Services -> Details... -> Show location icon in menu bar when System Services request your location
+
 Spotlight -> Search Results -> Spotlight Suggestions (disable)
-Spotlight -> Search Results -> Bing Web Searches (disable)
-Spotlight -> Privacy -> VirtualBox VMs
+
 Energy Saver -> Power Adapter -> Prevent computer from sleeping automatically when the display is off (selected)
+
 Keyboard -> Modifier Keys… -> Caps Lock Key: Control
 Keyboard -> Text -> Correct spelling automatically (delesect)
+Keyboard -> Text -> Capitalize words automatically (delesect)
+Keyboard -> Text -> Add period with double-space (delesect)
 Keyboard -> Text -> Use smart quotes and dashes (deselect)
 Keyboard -> Shortcuts -> Launchpad & Dock -> Turn Dock Hiding On/Off (deselect)
 Keyboard -> Shortcuts -> Full Keyboard Access... -> All controls
+
 Trackpad -> Point & Click -> Tap to click
 Trackpad -> Scroll & Zoom -> Scroll direction: natural (deselect)
+
 Sound -> Sound Effects -> Show volume in menu bar (select)
 Sound -> Sound Effects -> Play feedback when volume is changed
+
 Sharing -> Computer Name: snoopy
 Sharing -> Remote Login -> (selected, only administrators)
 Sharing > Users & Groups > Guest User -> Allow guests to log in to this computer (deselect)
+
 Users & Groups -> Login Options -> Show fast user switching menu as: Icon
-Dictation & Speech -> Dictation -> Dictation On (Use Enhanced Dictation)
-Dictation & Speech -> Text to Speech -> System Voice: -> Customize -> Alex -> Enhanced Quality
+
 Date & Time > Show date (selected)
-Accessibility -> Display -> Increase contrast
+
+Time Machine -> Show Time Machine in menu bar
+
 Accessibility -> Display -> Reduce transparency
 
-Safari
+Safari Preferences
 General -> New windows open with: Empty Page
 General -> New tabs open with: Empty Page
 General -> Homepage -> (blank)
-Search -> Search engine: DuckDuckGo
-Smart Search Field: Include Spotlight Suggestions -> (deselect)
-Smart Search Field: Preload Top Hit in the background -> (deselect)
+Search -> Smart Search Field: Preload Top Hit in the background -> (deselect)
 AutoFill (disable all)
+Privacy -> Website use of location services: Prompt for each website one time only
+Privacy -> Website tracking: Ask websites not to track me
+
+Safari
+View -> Show Favorites Bar
 
 Finder Preferences
 General -> New Finder windows show: acolomba (home)
