@@ -8,6 +8,7 @@ Desktop & Screen Saver -> Screen Saver -> Start after -> Never
 
 Dock -> Animate opening applications (deselect)
 
+Mission Control -> Automatically rearrange Spaces based on most recent use (deselect)
 Mission Control -> Displays have separate Spaces —> (deselect)
 Mission Control -> Keyboard and Mouse Shortcuts -> Mission Control: -> -
 Mission Control -> Keyboard and Mouse Shortcuts -> Application Windows: -> -
@@ -22,6 +23,9 @@ Security & Privacy -> Firewall Options.. -> Remote Login (SSH)
 Security & Privacy -> Privacy -> Location Services -> System Services -> Details... -> Show location icon in menu bar when System Services request your location
 
 Spotlight -> Search Results -> Spotlight Suggestions (disable)
+Spotlight -> Prevent Spotlight from searching these locations:
+    * ~/Applications (Parallels)
+    * /usr/local/Caskroom
 
 Energy Saver -> Power Adapter -> Prevent computer from sleeping automatically when the display is off (selected)
 
@@ -30,6 +34,7 @@ Keyboard -> Text -> Correct spelling automatically (delesect)
 Keyboard -> Text -> Capitalize words automatically (delesect)
 Keyboard -> Text -> Add period with double-space (delesect)
 Keyboard -> Text -> Use smart quotes and dashes (deselect)
+Keyboard -> Shortcuts -> Mission Control -> (deselect)
 Keyboard -> Shortcuts -> Launchpad & Dock -> Turn Dock Hiding On/Off (deselect)
 Keyboard -> Shortcuts -> Full Keyboard Access... -> All controls
 
@@ -43,6 +48,7 @@ Sharing -> Computer Name: snoopy
 Sharing -> Remote Login -> (selected, only administrators)
 Sharing > Users & Groups > Guest User -> Allow guests to log in to this computer (deselect)
 
+Users & Groups -> Guest User -> Allow guests to log in to this computer (deselect)
 Users & Groups -> Login Options -> Show fast user switching menu as: Icon
 
 Date & Time > Show date (selected)
@@ -50,6 +56,7 @@ Date & Time > Show date (selected)
 Time Machine -> Show Time Machine in menu bar
 
 Accessibility -> Display -> Reduce transparency
+Accessibility -> Display -> Shake mouse pointer to locate (unselect)
 
 Safari Preferences
 General -> New windows open with: Empty Page
@@ -57,6 +64,7 @@ General -> New tabs open with: Empty Page
 General -> Homepage -> (blank)
 Search -> Smart Search Field: Preload Top Hit in the background -> (deselect)
 AutoFill (disable all)
+Privacy -> Cookies and website data: Allow from current website only
 Privacy -> Website use of location services: Prompt for each website one time only
 Privacy -> Website tracking: Ask websites not to track me
 
