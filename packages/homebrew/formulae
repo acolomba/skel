@@ -2,12 +2,14 @@ ack
 bash
 bash-completion2
 cloc
+diff-so-fancy
 fish
-flac
 git
 git-tf
+graphviz
 keybase
 links
+lynis
 m-cli
 mas
 nethack
