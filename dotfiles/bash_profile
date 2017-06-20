@@ -1,19 +1,3 @@
-# if not running bash 4, tries to find one and launches it with the same options
-if [[ $BASH_VERSINFO != "4" ]]; then
-    IFS=: read -a paths <<< "$PATH"
-    for path in "${paths[@]}"; do
-        if [[ -x ${path}/bash && $(${path}/bash -c 'echo $BASH_VERSINFO') = "4" ]]; then
-             # launches bash with same options as current bash, but respects
-            # whether it's a login shell
-            if shopt -q login_shell; then
-                exec ${path}/bash -$- -l
-            else
-                exec ${path}/bash -$-
-            fi
-        fi
-   done
-fi
-
 # own bins
 export PATH="${HOME}/bin:${PATH}"
 
@@ -38,3 +22,4 @@ fi
 
 # sources bashrc for interactive login shells
 [[ -f ~/.bashrc ]] && [[ $- == *i* ]] && shopt login_shell >/dev/null && . ~/.bashrc
+
