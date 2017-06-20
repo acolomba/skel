@@ -62,8 +62,8 @@ Safari Preferences
 General -> New windows open with: Empty Page
 General -> New tabs open with: Empty Page
 General -> Homepage -> (blank)
-Search -> Smart Search Field: Preload Top Hit in the background -> (deselect)
 AutoFill (disable all)
+Search -> Smart Search Field: Preload Top Hit in the background -> (deselect)
 Privacy -> Cookies and website data: Allow from current website only
 Privacy -> Website use of location services: Prompt for each website one time only
 Privacy -> Website tracking: Ask websites not to track me
