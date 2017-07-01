@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 cd $(dirname "$0") || exit 1
 
@@ -50,8 +50,17 @@ case $(uname) in
         done 42<packages/homebrew/casks
         ;;
 
+    FreeBSD)
+        if which -s sudo; then
+            sudo pkg install -y $(cat packages/pkg/packages)
+        else
+            echo >2 "Error: Please install sudo with \"pkg install sudo\", edit /usr/local/etc/sudoers from the root account, and add \"$(whoami) ALL=(ALL) ALL\""
+            exit 1
+        fi
+        ;;
+
     Linux)
-        # makes sure it's a standard base distro
+        # makes sure it's a known standard base distro
         if which lsb_release >/dev/null; then
             case $(lsb_release -s -i) in
                 Debian|Ubuntu)
@@ -59,7 +68,7 @@ case $(uname) in
                 ;;
             esac
         fi
-    ;;
+        ;;
 esac
 
 # sublime settings home
@@ -73,7 +82,7 @@ case $(uname) in
 esac
 
 # writes sublime settings unless they already exist
-if [[ -d $st_settings_home ]]; then
+if [[ $st_settings_home ]] && [[ -d $st_settings_home ]]; then
     echo "Sublime settings already exist. Skipping."
 else
     cp -rf "conf/sublime-text-3" "${st_settings_home}"
