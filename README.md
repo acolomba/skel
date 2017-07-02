@@ -2,11 +2,17 @@
 
 ## Overview
 
-Configures a new host with dotfiles, command-line tools and applications. Supports macOS, FreeBSD and Debian/Ubuntu Linux.
+Configures a new or existing host with dotfiles, command-line tools and applications. Supports macOS, FreeBSD and Debian/Ubuntu Linux.
+
+On macOS, applications are installed via Homebrew casks and the App Store.
+
+## Running
 
 After reviewing the prerequisites and notes below, execute from your user account with:
 
     ./bootstrap.sh
+
+The script can be run multiple times after pulling new versions or changing the dotfiles or the list of packages and applications.
 
 ## Prerequisites
 
@@ -37,13 +43,16 @@ The `.bash_profile` and `.bashrc` files contain code to make sure they both run 
 
 ### macOS
 
-On macOS, this script will automatically install homebrew formulae and casks. 
+On macOS, this script will automatically install Homebrew formulae/casks and applications from the App Store.
 
 Before running the bootstrap script, review the contents of these files:
 
-* `packages/homebrew/formulae`: command-line tools, e.g. bash 4.x, vim, et al.;
-* `packages/homebrew/casks`: applications, e.g. Google Chrome, Java, et al.;
 * `packages/homebrew/taps`: sources of packages, in case you want to add any.
+* `packages/homebrew/formulae`: command-line tools, e.g. bash 4.x, vim et al.;
+* `packages/homebrew/casks`: applications, e.g. Google Chrome, Java et al.;
+* `packages/macapps/applications`: applications from the App Store, e.g. Slack, VOX et al.
+
+The ability to install from the App Store relies on the `mas` formula in `packages/homebrew/formulae`.
 
 ### FreeBSD
 

@@ -32,7 +32,6 @@ case $(uname) in
             fi
         done 42<packages/homebrew/taps
 
-
         # installs the base set of packages
         while read -u 42 formula; do
             if ! brew 2>/dev/null list --versions "${formula}" |grep >/dev/null '^'; then
@@ -48,6 +47,27 @@ case $(uname) in
                 brew cask install "${formula}"
             fi
         done 42<packages/homebrew/casks
+
+        # installs mac app store applications
+        if mas account 1>/dev/null; then
+            while read -u 42 appname; do
+                if ! mas list |fgrep -q " $appname ("; then
+                    # parses out the app id from the app store search; a typical
+                    # format is <id> Some App (<version>); we need to match the
+                    # whole "Some App" part to avoid partial matches, and then
+                    # use the id
+                    appid=$(mas search "${appname}" |awk -v appname=" ${appname}" '{ appid=$1; $1=""; if ($0 == appname) print appid; }')
+
+                    if [[ $appid ]]; then
+                        mas install "${appid}"
+                    else
+                        echo >&2 "Application does not exist in the App Store : ${appname}"
+                    fi
+                fi
+            done 42<packages/macapps/applications
+        else
+            echo >&2 "Error: Sign in to the App Store and repeat this setup. Continuing..."
+        fi
         ;;
 
     FreeBSD)
