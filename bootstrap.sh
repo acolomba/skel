@@ -44,7 +44,7 @@ case $(uname) in
         while read -u 42 formula; do
             if ! brew cask list "${formula}" >/dev/null; then
                 # if app not already installed, installs it
-                brew cask install "${formula}"
+                brew cask install "${formula}" --force
             fi
         done 42<packages/homebrew/casks
 
