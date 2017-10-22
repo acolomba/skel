@@ -131,12 +131,8 @@ case $TERM in
         ;;
 esac
 
-# sets files to be rwx for owner only
-umask 0077
-
 # cd home
 cd
 
 # sources local bashrc
 [[ -r ~/.bashrc_local ]] && . ~/.bashrc_local
-

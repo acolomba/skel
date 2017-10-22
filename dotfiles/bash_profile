@@ -22,4 +22,3 @@ fi
 
 # sources bashrc for interactive login shells
 [[ -f ~/.bashrc ]] && [[ $- == *i* ]] && shopt login_shell >/dev/null && . ~/.bashrc
-
