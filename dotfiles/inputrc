@@ -1,3 +1,6 @@
+# single-tab is sufficient to display alternatives
+set show-all-if-ambiguous on
+
 # ignores cases
 set completion-ignore-case on
 
@@ -6,6 +9,9 @@ set expand-tilde off
 
 # adds trailing / to symlinks when completing paths
 set mark-symlinked-directories on
+
+# shows file types when completing
+set visible-stats on
 
 # uses the text that has already been typed as the prefix for searching through
 # commands
@@ -26,3 +32,4 @@ set skip-completed-text on
 set input-meta on
 set output-meta on
 set convert-meta off
+
