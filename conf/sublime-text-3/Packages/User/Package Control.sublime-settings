@@ -8,16 +8,14 @@
 		"Base16 Color Schemes",
 		"BracketHighlighter",
 		"Filter Lines",
-		"fish-shell",
 		"Git",
 		"GitGutter",
 		"Indent XML",
 		"LogView",
-		"Matlab Completions",
 		"Package Control",
-		"PowerShell",
 		"Print to HTML",
 		"SideBarEnhancements",
-		"SyncedSideBar"
+		"SyncedSideBar",
+		"Terraform"
 	]
 }
