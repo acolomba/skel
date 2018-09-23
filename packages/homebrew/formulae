@@ -5,7 +5,6 @@ brew-cask-completion
 cloc
 curl
 diff-so-fancy
-fish
 git
 jq
 kubernetes-cli
