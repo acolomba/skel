@@ -7,15 +7,10 @@ curl
 diff-so-fancy
 git
 jq
-kubernetes-cli
-kubernetes-helm
-m-cli
 mas
 nethack
-parallel
 python
-terminal-notifier
-terraform
 vim
 watch
 wget
+
