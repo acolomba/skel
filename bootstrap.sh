@@ -105,5 +105,10 @@ esac
 if [[ $st_settings_home ]] && [[ -d $st_settings_home ]]; then
     echo "Sublime settings already exist. Skipping."
 else
+    # creates .config if it doesn't exist
+    if [[ ! -d $HOME/.config ]]; then
+        mkdir "$HOME/.config/"
+    fi
+
     cp -rf "conf/sublime-text-3" "${st_settings_home}"
 fi
