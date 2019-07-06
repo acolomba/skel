@@ -91,24 +91,3 @@ case $(uname) in
         ;;
 esac
 
-# sublime settings home
-case $(uname) in
-    Darwin)
-        st_settings_home="$HOME/Library/Application Support/Sublime Text 3"
-        ;;
-    Linux)
-        st_settings_home="$HOME/.config/sublime-text-3"
-        ;;
-esac
-
-# writes sublime settings unless they already exist
-if [[ $st_settings_home ]] && [[ -d $st_settings_home ]]; then
-    echo "Sublime settings already exist. Skipping."
-else
-    # creates .config if it doesn't exist
-    if [[ ! -d $HOME/.config ]]; then
-        mkdir "$HOME/.config/"
-    fi
-
-    cp -rf "conf/sublime-text-3" "${st_settings_home}"
-fi
