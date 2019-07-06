@@ -1,12 +1,10 @@
 System Preferences
-General -> Use dark menu bar and Dock
 General -> Recent Items: None
 
-
-Desktop & Screen Saver -> Desktop -> Solid Aqua Dark Blue
 Desktop & Screen Saver -> Screen Saver -> Start after -> Never
 
 Dock -> Animate opening applications (deselect)
+Dock -> Show recent applications in Dock (deselect)
 
 Mission Control -> Automatically rearrange Spaces based on most recent use (deselect)
 Mission Control -> Displays have separate Spaces —> (deselect)
@@ -17,13 +15,13 @@ Mission Control -> Keyboard and Mouse Shortcuts -> Show Dashboard: -> -
 Mission Control -> Hot Corners... -> Bottom Left -> Desktop
 Mission Control ->Allow Apple Watch to unlock your Mac: <select watch>
 
-Security & Privacy -> General -> Allow apps downloaded from: -> Anywhere
+Security & Privacy -> General -> Allow apps downloaded from: -> App Store and identified developers
 Security & Privacy -> Firewall -> Turn On Firewall
 Security & Privacy -> Firewall Options.. -> Remote Login (SSH)
 Security & Privacy -> Privacy -> Location Services -> System Services -> Details... -> Show location icon in menu bar when System Services request your location
 
 Spotlight -> Search Results -> Spotlight Suggestions (disable)
-Spotlight -> Prevent Spotlight from searching these locations:
+Spotlight -> Privacy -> Prevent Spotlight from searching these locations:
     * ~/Applications (Parallels)
     * /usr/local/Caskroom
 
@@ -34,39 +32,37 @@ Keyboard -> Text -> Correct spelling automatically (delesect)
 Keyboard -> Text -> Capitalize words automatically (delesect)
 Keyboard -> Text -> Add period with double-space (delesect)
 Keyboard -> Text -> Use smart quotes and dashes (deselect)
-Keyboard -> Shortcuts -> Mission Control -> (deselect)
 Keyboard -> Shortcuts -> Launchpad & Dock -> Turn Dock Hiding On/Off (deselect)
 Keyboard -> Shortcuts -> Full Keyboard Access... -> All controls
 
-Trackpad -> Point & Click -> Tap to click
 Trackpad -> Scroll & Zoom -> Scroll direction: natural (deselect)
 
 Sound -> Sound Effects -> Show volume in menu bar (select)
 Sound -> Sound Effects -> Play feedback when volume is changed
 
+Bluetooth -> Show Bluetooth in menu bar
+
 Sharing -> Computer Name: snoopy
 Sharing -> Remote Login -> (selected, only administrators)
-Sharing > Users & Groups > Guest User -> Allow guests to log in to this computer (deselect)
 
-Users & Groups -> Guest User -> Allow guests to log in to this computer (deselect)
 Users & Groups -> Login Options -> Show fast user switching menu as: Icon
 
-Date & Time > Show date (selected)
+Siri -> Enable Ask Siri (deselect)
+
+Date & Time -> Clock -> Show date
 
 Time Machine -> Show Time Machine in menu bar
 
 Accessibility -> Display -> Reduce transparency
-Accessibility -> Display -> Shake mouse pointer to locate (unselect)
+Accessibility -> Display -> Shake mouse pointer to locate (deselect)
 
 Safari Preferences
 General -> New windows open with: Empty Page
 General -> New tabs open with: Empty Page
 General -> Homepage -> (blank)
 AutoFill (disable all)
+Search -> Search Engine -> DuckDuckGo
 Search -> Smart Search Field: Preload Top Hit in the background -> (deselect)
-Privacy -> Cookies and website data: Allow from current website only
-Privacy -> Website use of location services: Prompt for each website one time only
-Privacy -> Website tracking: Ask websites not to track me
 
 Safari
 View -> Show Favorites Bar
