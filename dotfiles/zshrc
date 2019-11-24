@@ -1,0 +1,72 @@
+# history
+HISTSIZE=1000
+SAVEHIST=10000
+setopt inc_append_history
+setopt extended_history
+setopt hist_find_no_dups
+setopt hist_ignore_space
+bindkey '^[[A' up-line-or-search
+bindkey '^[[B' down-line-or-search
+
+# emacs editing
+bindkey -e
+
+# completion
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
+zstyle ':completion:*' menu select=2
+zstyle :compinstall filename "$HOME/.zshrc"
+fpath=(/usr/local/share/zsh-completions $fpath)
+autoload -Uz compinit && compinit
+
+#setopt auto_list
+setopt auto_menu
+
+# ls
+case $(uname) in
+    Darwin|FreeBSD)
+        export CLICOLOR_FORCE=1
+        ls_opts="-bCFhG"
+        ;;
+
+    Linux)
+        ls_opts="--color=always -bCFh"
+        ;;
+esac
+
+export LS_COLORS='no=00:fi=00:di=01;34:ln=01;36:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arj=01;31:*.taz=01;31:*.lzh=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.gz=01;31:*.bz2=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.jpg=01;35:*.jpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.avi=01;35:*.fli=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.ogg=01;35:*.mp3=01;35:*.wav=01;35:'
+
+_ls() { \ls ${ls_opts} $@ | less -E -R -X; }
+alias ls="_ls"
+alias ll="_ls -l"
+alias la="_ls -la"
+alias ll="ls -l"
+
+# man
+man() {
+    env \
+    LESS_TERMCAP_mb=$(printf "\e[1;31m") \
+    LESS_TERMCAP_md=$(printf "\e[1;31m") \
+    LESS_TERMCAP_me=$(printf "\e[0m") \
+    LESS_TERMCAP_se=$(printf "\e[0m") \
+    LESS_TERMCAP_so=$(printf "\e[1;44;33m") \
+    LESS_TERMCAP_ue=$(printf "\e[0m") \
+    LESS_TERMCAP_us=$(printf "\e[1;32m") \
+    man $@
+}
+
+# alias for screen that tries to reattach some detached session
+alias scr="screen -d -RR"
+
+# prompt
+autoload -U colors && colors
+PROMPT="%{$fg[red]%}%m%{$reset_color%}:%{$fg[blue]%}%1~%{$reset_color%} %# "
+
+preexec () {
+    echo -ne "\ek\e\\"
+}
+
+# no quarantine for homebrew casks
+export HOMEBREW_CASK_OPTS=--no-quarantine
+
+# acme
+. "$HOME/.acme.sh/acme.sh.env"
