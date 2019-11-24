@@ -1,7 +1,6 @@
 bash
 bash-completion@2
 brew-cask-completion
-cloc
 curl
 diff-so-fancy
 git
