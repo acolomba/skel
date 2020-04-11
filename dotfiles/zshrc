@@ -74,7 +74,9 @@ preexec () {
 }
 
 # no quarantine for homebrew casks
-export HOMEBREW_CASK_OPTS=--no-quarantine
+if type brew &>/dev/null; then
+    export HOMEBREW_CASK_OPTS=--no-quarantine
+fi
 
 # acme
 . "$HOME/.acme.sh/acme.sh.env"
