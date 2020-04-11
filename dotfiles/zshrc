@@ -78,5 +78,7 @@ if type brew &>/dev/null; then
     export HOMEBREW_CASK_OPTS=--no-quarantine
 fi
 
-# acme
-. "$HOME/.acme.sh/acme.sh.env"
+# sources acme, if available
+if [[ -r $HOME/.acme.sh/acme.sh.env ]]; then
+    . "$HOME/.acme.sh/acme.sh.env"
+fi
