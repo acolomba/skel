@@ -56,7 +56,7 @@ case $(uname) in
                     # format is <id> Some App (<version>); we need to match the
                     # whole "Some App" part to avoid partial matches, and then
                     # use the id
-                    appid=$(mas search "${appname}" |awk -v appname=" ${appname}" '{ appid=$1; $1=""; if ($0 == appname) print appid; }')
+                    appid=$(mas search "${appname}" |grep "[0-9]\+ \+${appname} \+(" |sed -E 's/^ *([0-9]+) .*/\1/')
 
                     if [[ $appid ]]; then
                         mas install "${appid}"
