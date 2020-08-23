@@ -62,8 +62,21 @@ man() {
     man $@
 }
 
-# alias for screen that tries to reattach some detached session
+# screen
 alias scr="screen -d -RR"
+
+if [[ $TERM == "screen" ]]; then
+  function preexec()
+  {
+    local -a cmd=(${(z)1})
+    print -nR $'\033k'$cmd[1]:t$'\033'\\\
+  }
+
+  function precmd()
+  {
+    print -nR $'\033k'$SHELL:t$'\033'\\\
+  }
+fi
 
 # prompt
 autoload -U colors && colors
