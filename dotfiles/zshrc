@@ -95,3 +95,9 @@ fi
 if [[ -r $HOME/.acme.sh/acme.sh.env ]]; then
     . "$HOME/.acme.sh/acme.sh.env"
 fi
+
+# direnv, if available
+if type direnv &>/dev/null; then
+    eval "$(direnv hook zsh)"
+fi
+
