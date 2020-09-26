@@ -77,7 +77,7 @@ if [[ $TERM == "screen" ]]; then
 
     function precmd()
     {
-        eval "tab_title=\"$TAB_TITLE_PREFIX $SHELL:t\""
+        eval "tab_title=\"$TAB_TITLE_PREFIX|$SHELL:t\""
         print -nR $'\033k'$tab_title$'\033'\\\
     }
 fi
