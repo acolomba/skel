@@ -92,7 +92,11 @@ precmd_vcs_info() { vcs_info }
 precmd_functions+=( precmd_vcs_info )
 setopt prompt_subst
 RPROMPT=\$vcs_info_msg_0_
-zstyle ':vcs_info:git:*' formats '%b'
+zstyle ':vcs_info:*' enable git
+zstyle ':vcs_info:*' get-revision true
+zstyle ':vcs_info:*' check-for-changes true
+zstyle ':vcs_info:*' formats '[%b]%u%c-'
+zstyle ':vcs_info:*' actionformats '[%b|%a]%u%c-'
 
 # no quarantine for homebrew casks
 if type brew &>/dev/null; then
