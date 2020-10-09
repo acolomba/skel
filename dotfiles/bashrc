@@ -5,7 +5,6 @@ if (( $BASH_VERSINFO >= 4 )); then
         for location in ${path}/../etc/bash_completion ${path}/../share/bash-completion/bash_completion ${path}/../etc/profile.d/bash_completion.sh; do
             if [[ -r $location ]]; then
                 . $location
-                echo $location
             fi
         done
     done
