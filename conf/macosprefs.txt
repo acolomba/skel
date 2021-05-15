@@ -1,3 +1,6 @@
+sudo vim /etc/pam.d/sudo
+auth       sufficient     pam_tid.so
+
 System Preferences
 General -> Recent Items: None
 
