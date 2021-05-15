@@ -122,3 +122,19 @@ export FZF_DEFAULT_COMMAND='fd --type f --exclude .git --exclude .metadata'
 
 [ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh
 
+# extra completion
+
+# sets completion for a command the same as another (https://unix.stackexchange.com/questions/496379/treat-command-like-another-for-completion-purposes)
+compdefas () {
+  if (($+_comps[$1])); then
+    compdef $_comps[$1] ${^@[2,-1]}=$1
+  fi
+}
+
+# autocompletes mvnd as if it were mvn
+if [ -x $(where mvnd) ]; then
+    compdefas mvn mvnd
+fi
+
+cd
+
