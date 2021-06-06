@@ -7,7 +7,6 @@ curl
 diff-so-fancy
 direnv
 fd
-font-fira-code
 fzf
 git
 iperf3

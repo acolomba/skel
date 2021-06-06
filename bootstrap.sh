@@ -7,6 +7,7 @@ umask 0077
 for df in dotfiles/*; do
     dst_df="${HOME}/.$(basename "${df}")"
 
+    echo "Copying ${df}"
     if [[ -f $df ]]; then
         cp "${df}" "${dst_df}"
     else
@@ -21,10 +22,10 @@ case $(uname) in
         # sets up brew
         if ! which -s brew; then
             umask 0022
-            ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" || exit 1
+            /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
         fi
 
-        # taps
+        # homebrew taps
         while read -u 42 tap; do
             if [[ ! -z ${tap} ]]; then
                 echo "Tapping ${tap}"
@@ -32,7 +33,7 @@ case $(uname) in
             fi
         done 42<packages/homebrew/taps
 
-        # installs the base set of packages
+        # homebrew formulae
         while read -u 42 formula; do
             if ! brew 2>/dev/null list --versions "${formula}" |grep >/dev/null '^'; then
                 # if formula not already installed, installs it
@@ -40,11 +41,11 @@ case $(uname) in
             fi
         done 42<packages/homebrew/formulae
 
-        # installs mac apps via brew cask
-        while read -u 42 formula; do
-            if ! brew cask list "${formula}" >/dev/null; then
+        # homebrew casks casks
+        while read -u 42 cask; do
+            if ! brew list --cask "${cask}" 2>/dev/null; then
                 # if app not already installed, installs it
-                brew cask install "${formula}" --force
+                brew install --cask "${cask}" --force
             fi
         done 42<packages/homebrew/casks
 
