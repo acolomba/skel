@@ -1,6 +1,6 @@
 # history
-HISTSIZE=1000
-SAVEHIST=10000
+HISTSIZE=10000
+SAVEHIST=100000
 setopt inc_append_history
 setopt extended_history
 setopt hist_find_no_dups
@@ -20,6 +20,10 @@ zstyle :compinstall filename "$HOME/.zshrc"
 
 # personal completion
 fpath=(~/.zsh/completion $fpath)
+
+# personal path
+path+=('~/bin')
+export PATh
 
 # completion for homebrew software
 if type brew &>/dev/null; then
@@ -101,11 +105,6 @@ zstyle ':vcs_info:*' check-for-changes true
 zstyle ':vcs_info:*' formats '[%b]%u%c-'
 zstyle ':vcs_info:*' actionformats '[%b|%a]%u%c-'
 
-# no quarantine for homebrew casks
-if type brew &>/dev/null; then
-    export HOMEBREW_CASK_OPTS=--no-quarantine
-fi
-
 # sources acme, if available
 if [[ -r $HOME/.acme.sh/acme.sh.env ]]; then
     . "$HOME/.acme.sh/acme.sh.env"
@@ -116,9 +115,9 @@ if type direnv &>/dev/null; then
     eval "$(direnv hook zsh)"
 fi
 
+# fzf
 export FZF_DEFAULT_COMMAND='fd --type f --exclude .git --exclude .metadata'
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
 
 [ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh
 
@@ -136,5 +135,11 @@ if [ -x $(where mvnd) ]; then
     compdefas mvn mvnd
 fi
 
-cd
+# autosuggestions
+ZSH_AUTOSUGGEST_STRATEGY=(history)
+[ -f ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh ] && . ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 
+# local zshrc
+[ -f ~/.zsh/zshrc-local.zsh ] && . ~/.zsh/zshrc-local.zsh
+
+cd
