@@ -1,9 +1,6 @@
-ack-grep
+autojump
 bash-completion
-fish
-git
-nethack-console
+direnv
+fzf
 source-highlight
-tig
-tmux
-
+zsh
