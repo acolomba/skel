@@ -1,6 +1,7 @@
 autojump
 bash-completion
 direnv
+fd-find
 fzf
 source-highlight
 zsh
