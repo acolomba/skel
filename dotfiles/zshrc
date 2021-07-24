@@ -168,6 +168,7 @@ if [[ -f ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh ]]; then
     . ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 fi
 
+# sources local zshrc
 [[ -f ~/.zsh/zshrc-local.zsh ]] && . ~/.zsh/zshrc-local.zsh
 
 cd

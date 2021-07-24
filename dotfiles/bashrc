@@ -1,3 +1,6 @@
+# do nothing if non-interactive
+[[ $- != *i* ]] && return
+
 # completion; this runs only on 4+
 if (( $BASH_VERSINFO >= 4 )); then
     IFS=: read -a paths <<< "$PATH"
@@ -32,25 +35,19 @@ shopt -s cdspell
 
 # ls command options and helpers
 
-# sets default options for the ls command
+# ls
 case $(uname) in
     Darwin|FreeBSD)
         export CLICOLOR_FORCE=1
-        ls_opts="-bCFhG"
+        _ls() { \ls -bCFhG $@ | less -E -R -X; }
         ;;
 
     Linux)
         ls_opts="--color=always -bCFh"
+        _ls() { \ls --color=always -bCFh $@ | less -E -R -X; }
         ;;
 esac
 
-# ls colors
-export LS_COLORS='no=00:fi=00:di=01;34:ln=01;36:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arj=01;31:*.taz=01;31:*.lzh=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.gz=01;31:*.bz2=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.jpg=01;35:*.jpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.avi=01;35:*.fli=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.ogg=01;35:*.mp3=01;35:*.wav=01;35:'
-
-# helpers
-
-# ls
-_ls() { \ls ${ls_opts} "$@" | less -E -R -X; }
 alias ls="_ls"
 alias ll="_ls -l"
 alias la="_ls -la"
@@ -71,28 +68,7 @@ man() {
 # screen helper that will always try to reattach to some detached session
 alias scr="screen -d -RR"
 
-# macos-only commands
-if [[ $(uname) = 'Darwin' ]]; then
-    # airport command
-    alias airport="/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport"
-
-    # cpu warm-up
-    alias warmup='parallel yes ::: $(seq $(sysctl -n hw.ncpu)) >/dev/null'
-
-    # p4merge
-    app_prefixes=( "$HOME/Applications" "/Applications" )
-    for app_prefix in "${app_prefixes[@]}"; do
-        p4merge_location="${app_prefix}/p4merge.app/Contents/Resources/launchp4merge"
-        if [[ -x ${p4merge_location} ]]; then
-            alias p4merge="${p4merge_location}"
-        fi
-    done
-fi
-
-# xargs with one parameter only
-alias xargs1="xargs -n 1"
-
-# bash prompt
+# prompt
 
 # username@host for other accounts
 prompt_host="\u@\h"
@@ -121,7 +97,6 @@ end_host_color="\[\e[m\]"
 start_pwd_color="\[\e[1;34m\]"
 end_pwd_color="\[\e[m\]"
 
-# the prompt
 export PS1="${start_host_color}${prompt_host}${end_host_color}:${start_pwd_color}\w${end_pwd_color} ${prompt_suffix} "
 
 # prompt command for use in screen multiplexer
@@ -131,9 +106,49 @@ case $TERM in
         ;;
 esac
 
-# cd home
-cd
+# acme
+if [[ -r $HOME/.acme.sh/acme.sh.env ]]; then
+    . "$HOME/.acme.sh/acme.sh.env"
+fi
+
+# fzf
+case $(uname) in
+    Darwin)
+        if type fzf >/dev/null && type fd &>/dev/null; then
+            if [[ ! "$PATH" == */usr/local/opt/fzf/bin* ]]; then
+              export PATH="${PATH:+${PATH}:}/usr/local/opt/fzf/bin"
+            fi
+
+            [[ $- == *i* ]] && . /usr/local/opt/fzf/shell/completion.bash
+
+            . /usr/local/opt/fzf/shell/key-bindings.bash
+        fi
+        ;;
+
+    Linux)
+        if type fzf >/dev/null && type fdfind &>/dev/null; then
+            [[ $- == *i* ]] && . /usr/share/doc/fzf/examples/completion.bash
+
+            . /usr/share/doc/fzf/examples/key-bindings.bash
+        fi
+        ;;
+esac
+
+# autojump
+case $(uname) in
+    Darwin)
+        [[ -f /usr/local/etc/profile.d/autojump.sh ]] \
+            && . /usr/local/etc/profile.d/autojump.sh
+        ;;
+
+    Linux)
+        [[ -f /usr/share/autojump/autojump.sh ]] \
+            && . /usr/share/autojump/autojump.sh
+        ;;
+esac
 
 # sources local bashrc
 [[ -r ~/.bashrc_local ]] && . ~/.bashrc_local
 
+# cd home
+cd
