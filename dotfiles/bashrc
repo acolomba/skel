@@ -39,18 +39,27 @@ shopt -s cdspell
 case $(uname) in
     Darwin|FreeBSD)
         export CLICOLOR_FORCE=1
-        _ls() { \ls -bCFhG $@ | less -E -R -X; }
+        _ls() { \ls -bCFhG $@ | less -ERX; }
         ;;
 
     Linux)
         ls_opts="--color=always -bCFh"
-        _ls() { \ls --color=always -bCFh $@ | less -E -R -X; }
+        _ls() { \ls --color=always -bCFh $@ | less -ERX; }
         ;;
 esac
 
 alias ls="_ls"
 alias ll="_ls -l"
 alias la="_ls -la"
+
+# less
+if type lesspipe >/dev/null; then
+    eval $(lesspipe)
+elif type src-hilite-lesspipe.sh >/dev/null 2>/dev/null; then
+    export LESSOPEN="| src-hilite-lesspipe.sh %s"
+elif [[ -f /usr/share/source-highlight/src-hilite-lesspipe.sh ]]; then
+    export LESSOPEN="| /usr/share/source-highlight/src-hilite-lesspipe.sh %s"
+fi
 
 # man
 man() {
@@ -64,6 +73,7 @@ man() {
     LESS_TERMCAP_us=$(printf "\e[1;32m") \
     man "$@"
 }
+
 
 # screen helper that will always try to reattach to some detached session
 alias scr="screen -d -RR"

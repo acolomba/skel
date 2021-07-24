@@ -7,10 +7,14 @@ export HISTCONTROL="erasedups:ignoredups:ignorespace"
 export HISTIGNORE="bg:fg:rm *:exit"
 
 # editor
-export EDITOR=vim
+if type vim >/dev/null; then
+    export EDITOR=vim
+else
+    export EDITOR=vi
+fi
 
-# pager options
-export LESS="$LESS -i -F -R -X"
+# less
+export LESS="-FRXi"
 
 # pager syntax highlighting if available
 if type src-hilite-lesspipe.sh >/dev/null 2>/dev/null; then
@@ -24,4 +28,4 @@ fi
 [[ -r ~/.bash_profile_local ]] && . ~/.bash_profile_local
 
 # sources bashrc for interactive login shells
-[[ -f ~/.bashrc ]] && [[ $- == *i* ]] && shopt login_shell >/dev/null && . ~/.bashrc
+[[ $- == *i* ]] && [[ -f ~/.bashrc ]] && shopt login_shell >/dev/null && . ~/.bashrc

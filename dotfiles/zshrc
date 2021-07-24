@@ -36,16 +36,23 @@ autoload -Uz compinit && compinit
 
 setopt auto_menu
 
+# editor
+if type vim >/dev/null; then
+    export EDITOR=vim
+else
+    export EDITOR=vi
+fi
+
 # ls
 case $(uname) in
     Darwin|FreeBSD)
         export CLICOLOR_FORCE=1
-        _ls() { \ls -bCFhG $@ | less -E -R -X; }
+        _ls() { \ls -bCFhG $@ | less -ERX; }
         ;;
 
     Linux)
         ls_opts="--color=always -bCFh"
-        _ls() { \ls --color=always -bCFh $@ | less -E -R -X; }
+        _ls() { \ls --color=always -bCFh $@ | less -ERX; }
         ;;
 esac
 
@@ -53,6 +60,17 @@ alias ls="_ls"
 alias ll="_ls -l"
 alias la="_ls -la"
 alias ll="ls -l"
+
+# less
+export LESS="-FRXi"
+
+if type lesspipe >/dev/null; then
+    eval $(lesspipe)
+elif type src-hilite-lesspipe.sh >/dev/null 2>/dev/null; then
+    export LESSOPEN="| src-hilite-lesspipe.sh %s"
+elif [[ -f /usr/share/source-highlight/src-hilite-lesspipe.sh ]]; then
+    export LESSOPEN="| /usr/share/source-highlight/src-hilite-lesspipe.sh %s"
+fi
 
 # man
 man() {
@@ -150,7 +168,7 @@ case $(uname) in
         ;;
 esac
 
-# extra completion
+# completion
 
 # sets completion for a command the same as another (https://unix.stackexchange.com/questions/496379/treat-command-like-another-for-completion-purposes)
 compdefas () {
@@ -171,4 +189,5 @@ fi
 # sources local zshrc
 [[ -f ~/.zsh/zshrc-local.zsh ]] && . ~/.zsh/zshrc-local.zsh
 
+# cd home
 cd
