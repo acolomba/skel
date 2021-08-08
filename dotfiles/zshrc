@@ -72,6 +72,9 @@ export LESS="-FRXi"
 
 if type lesspipe >/dev/null; then
     eval $(lesspipe)
+elif type lesspipe.sh >/dev/null; then
+    export LESSOPEN="|/usr/local/bin/lesspipe.sh %s"
+    export LESS_ADVANCED_PREPROCESSOR=1
 elif type src-hilite-lesspipe.sh >/dev/null 2>/dev/null; then
     export LESSOPEN="| src-hilite-lesspipe.sh %s"
 elif [[ -f /usr/share/source-highlight/src-hilite-lesspipe.sh ]]; then

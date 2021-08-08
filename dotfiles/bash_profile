@@ -16,14 +16,6 @@ fi
 # less
 export LESS="-FRXi"
 
-# pager syntax highlighting if available
-if type src-hilite-lesspipe.sh >/dev/null 2>/dev/null; then
-    export LESSOPEN="| src-hilite-lesspipe.sh %s"
-elif [[ -f /usr/share/source-highlight/src-hilite-lesspipe.sh ]]; then
-    export LESSOPEN="| /usr/share/source-highlight/src-hilite-lesspipe.sh %s"
-fi
-
-
 # sources local profile
 [[ -r ~/.bash_profile_local ]] && . ~/.bash_profile_local
 
