@@ -28,8 +28,8 @@ zstyle :compinstall filename "$HOME/.zshrc"
 fpath=(~/.zsh/completion $fpath)
 
 # personal path
-path+=('~/bin')
-export PATh
+path+=("$HOME/bin")
+export PATH
 
 # completion for homebrew software
 if type brew &>/dev/null; then
