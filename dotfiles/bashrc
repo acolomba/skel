@@ -54,7 +54,7 @@ alias la="_ls -la"
 
 # less
 if type lesspipe &>/dev/null; then
-    eval $(lesspipe)
+    eval $(lesspipe) &>/dev/null
 elif type lesspipe.sh &>/dev/null; then
     export LESSOPEN="|/usr/local/bin/lesspipe.sh %s"
     export LESS_ADVANCED_PREPROCESSOR=1

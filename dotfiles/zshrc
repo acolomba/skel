@@ -10,6 +10,7 @@ setopt HIST_EXPIRE_DUPS_FIRST
 setopt HIST_REDUCE_BLANKS
 setopt HIST_IGNORE_SPACE
 setopt HIST_NO_STORE
+setopt CORRECT
 
 bindkey '^[[A' up-line-or-search
 bindkey '^[[B' down-line-or-search
@@ -71,7 +72,7 @@ alias ll="ls -l"
 export LESS="-FRXi"
 
 if type lesspipe &>/dev/null; then
-    eval $(lesspipe)
+    eval $(lesspipe) &>/dev/null
 elif type lesspipe.sh &>/dev/null; then
     export LESSOPEN="|/usr/local/bin/lesspipe.sh %s"
     export LESS_ADVANCED_PREPROCESSOR=1
