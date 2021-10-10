@@ -14,3 +14,8 @@ sudo chflags schg ~/Library/Preferences/com.apple.LaunchServices.QuarantineEvent
 
 # Pre-Big Sur titlebars
 defaults write -g NSWindowSupportsAutomaticInlineTitle -bool false
+
+# resets docker size and prevents resizing
+defaults write com.apple.dock tilesize -integer 48
+defaults write com.apple.dock size-immutable -bool yes
+killall Dock
