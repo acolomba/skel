@@ -43,7 +43,7 @@ autoload -Uz compinit && compinit
 setopt auto_menu
 
 # editor
-if type vim >/dev/null; then
+if type vim &>/dev/null; then
     export EDITOR=vim
 else
     export EDITOR=vi
@@ -70,12 +70,12 @@ alias ll="ls -l"
 # less
 export LESS="-FRXi"
 
-if type lesspipe >/dev/null; then
+if type lesspipe &>/dev/null; then
     eval $(lesspipe)
-elif type lesspipe.sh >/dev/null; then
+elif type lesspipe.sh &>/dev/null; then
     export LESSOPEN="|/usr/local/bin/lesspipe.sh %s"
     export LESS_ADVANCED_PREPROCESSOR=1
-elif type src-hilite-lesspipe.sh >/dev/null 2>/dev/null; then
+elif type src-hilite-lesspipe.sh &>/dev/null; then
     export LESSOPEN="| src-hilite-lesspipe.sh %s"
 elif [[ -f /usr/share/source-highlight/src-hilite-lesspipe.sh ]]; then
     export LESSOPEN="| /usr/share/source-highlight/src-hilite-lesspipe.sh %s"
@@ -144,7 +144,7 @@ fi
 # fzf
 case $(uname) in
     Darwin)
-        if type fzf >/dev/null && type fd &>/dev/null; then
+        if type fzf &>/dev/null && type fd &>/dev/null; then
             if [[ ! "$PATH" == */usr/local/opt/fzf/bin* ]]; then
               export PATH="${PATH:+${PATH}:}/usr/local/opt/fzf/bin"
             fi
@@ -156,7 +156,7 @@ case $(uname) in
         ;;
 
     Linux)
-        if type fzf >/dev/null && type fdfind &>/dev/null; then
+        if type fzf &>/dev/null && type fdfind &>/dev/null; then
             [[ $- == *i* ]] && . /usr/share/doc/fzf/examples/completion.zsh
 
             . /usr/share/doc/fzf/examples/key-bindings.zsh

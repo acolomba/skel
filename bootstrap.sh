@@ -91,4 +91,3 @@ case $(uname) in
         fi
         ;;
 esac
-
