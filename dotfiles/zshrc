@@ -71,10 +71,10 @@ alias ll="ls -l"
 # less
 export LESS="-FRXi"
 
-if type lesspipe &>/dev/null; then
-    eval $(lesspipe) &>/dev/null
-elif type lesspipe.sh &>/dev/null; then
-    export LESSOPEN="|/usr/local/bin/lesspipe.sh %s"
+if type lesspipe >/dev/null; then
+    eval $(lesspipe)
+elif type lesspipe.sh >/dev/null; then
+    export LESSOPEN="| $(brew --prefix)/bin/lesspipe.sh %s"
     export LESS_ADVANCED_PREPROCESSOR=1
 elif type src-hilite-lesspipe.sh &>/dev/null; then
     export LESSOPEN="| src-hilite-lesspipe.sh %s"
@@ -145,19 +145,19 @@ fi
 # fzf
 case $(uname) in
     Darwin)
-        if type fzf &>/dev/null && type fd &>/dev/null; then
-            if [[ ! "$PATH" == */usr/local/opt/fzf/bin* ]]; then
-              export PATH="${PATH:+${PATH}:}/usr/local/opt/fzf/bin"
+        if type fzf >/dev/null && type fd &>/dev/null; then
+            if [[ ! "$PATH" == *$(brew --prefix)/opt/fzf/bin* ]]; then
+              export PATH="${PATH:+${PATH}:}$(brew --prefix)/opt/fzf/bin"
             fi
 
-            [[ $- == *i* ]] && . /usr/local/opt/fzf/shell/completion.zsh
+            [[ $- == *i* ]] && . $(brew --prefix)/opt/fzf/shell/completion.zsh
 
-            . /usr/local/opt/fzf/shell/key-bindings.zsh
+            . $(brew --prefix)/opt/fzf/shell/key-bindings.zsh
         fi
         ;;
 
     Linux)
-        if type fzf &>/dev/null && type fdfind &>/dev/null; then
+        if type fzf >/dev/null && type fdfind &>/dev/null; then
             [[ $- == *i* ]] && . /usr/share/doc/fzf/examples/completion.zsh
 
             . /usr/share/doc/fzf/examples/key-bindings.zsh
@@ -168,8 +168,8 @@ esac
 # autojump
 case $(uname) in
     Darwin)
-        [[ -f /usr/local/etc/profile.d/autojump.sh ]] \
-            && . /usr/local/etc/profile.d/autojump.sh
+        [[ -f $(brew --prefix)/etc/profile.d/autojump.sh ]] \
+            && . $(brew --prefix)/etc/profile.d/autojump.sh
         ;;
 
     Linux)
