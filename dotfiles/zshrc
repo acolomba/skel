@@ -53,8 +53,7 @@ fi
 # ls
 case $(uname) in
     Darwin|FreeBSD)
-        export CLICOLOR_FORCE=1
-        _ls() { \ls -bCFhG $@ | less -ERX; }
+export CLICOLOR=--color=auto
         ;;
 
     Linux)
@@ -63,10 +62,8 @@ case $(uname) in
         ;;
 esac
 
-alias ls="_ls"
-alias ll="_ls -l"
-alias la="_ls -la"
 alias ll="ls -l"
+alias la="ls -la"
 
 # less
 export LESS="-FRXi"
@@ -190,11 +187,19 @@ compdefas () {
 # autocompletes mvnd as if it were mvn
 type mvnd &>/dev/null && compdefas mvn mvnd
 
-# autosuggestions
-if [[ -f ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh ]]; then
-    ZSH_AUTOSUGGEST_STRATEGY=(history)
-    . ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
-fi
+# zsh autosuggestions and highlighting
+case $(uname) in
+    Darwin)
+    if [[ -f ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh ]]; then
+        ZSH_AUTOSUGGEST_STRATEGY=(history)
+        . ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+    fi
+
+    if [[ -f $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
+        source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+    fi
+    ;;
+esac
 
 # sources local zshrc
 [[ -f ~/.zsh/zshrc-local.zsh ]] && . ~/.zsh/zshrc-local.zsh
