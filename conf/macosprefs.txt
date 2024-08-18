@@ -23,10 +23,10 @@ Security & Privacy -> Firewall -> Turn On Firewall
 Security & Privacy -> Firewall Options.. -> Remote Login (SSH)
 Security & Privacy -> Privacy -> Location Services -> System Services -> Details... -> Show location icon in menu bar when System Services request your location
 
-Spotlight -> Search Results -> Spotlight Suggestions (disable)
+Spotlight -> Search Results -> Siri Suggestions (disable)
 Spotlight -> Privacy -> Prevent Spotlight from searching these locations:
     * ~/Applications (Parallels)
-    * /usr/local/Caskroom
+    * /opt/homebrew/Caskroom
 
 Energy Saver -> Power Adapter -> Prevent computer from sleeping automatically when the display is off (selected)
 

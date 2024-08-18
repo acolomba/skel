@@ -13,7 +13,6 @@ iperf3
 jq
 lesspipe
 mas
-mvnd
 nethack
 nmap
 python3
@@ -21,4 +20,6 @@ sslyze
 vim
 watch
 wget
+zsh-autosuggestions
 zsh-completions
+zsh-syntax-highlighting
