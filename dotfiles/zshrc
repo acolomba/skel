@@ -53,7 +53,7 @@ fi
 # ls
 case $(uname) in
     Darwin|FreeBSD)
-export CLICOLOR=--color=auto
+        export CLICOLOR=--color=auto
         ;;
 
     Linux)
