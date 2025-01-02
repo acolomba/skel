@@ -58,7 +58,7 @@ case $(uname) in
 
     Linux)
         ls_opts="--color=always -bCFh"
-        _ls() { \ls --color=always -bCFh $@ | less -ERX; }
+        __ls() { \ls --color=always -bCFh $@ | less -ERX; }
         ;;
 esac
 
@@ -128,11 +128,6 @@ zstyle ':vcs_info:*' check-for-changes true
 zstyle ':vcs_info:*' formats '[%b]%u%c-'
 zstyle ':vcs_info:*' actionformats '[%b|%a]%u%c-'
 
-# acme
-if [[ -r $HOME/.acme.sh/acme.sh.env ]]; then
-    . "$HOME/.acme.sh/acme.sh.env"
-fi
-
 # direnv
 if type direnv &>/dev/null; then
     eval "$(direnv hook zsh)"
@@ -187,22 +182,27 @@ compdefas () {
 # autocompletes mvnd as if it were mvn
 type mvnd &>/dev/null && compdefas mvn mvnd
 
-# zsh autosuggestions and highlighting
+# autosuggestions
 case $(uname) in
     Darwin)
-    if [[ -f ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh ]]; then
-        ZSH_AUTOSUGGEST_STRATEGY=(history)
-        . ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
-    fi
+        if [[ -f $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]]; then
+            ZSH_AUTOSUGGEST_STRATEGY=(history)
+            . $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+        fi
 
-    if [[ -f $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
-        source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-    fi
-    ;;
+        ;;
 esac
 
 # sources local zshrc
 [[ -f ~/.zsh/zshrc-local.zsh ]] && . ~/.zsh/zshrc-local.zsh
+
+# zsh syntax highlighting
+case $(uname) in
+    Darwin)
+        source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+        ;;
+esac
 
 # cd home
 cd
