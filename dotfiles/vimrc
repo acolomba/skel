@@ -61,3 +61,9 @@ set title
 
 " shows the (partial) command as it’s being typed
 set showcmd
+
+" buffer switching
+noremap <silent> [b :bprevious<CR>
+noremap <silent> ]b :bnext<CR>
+noremap <silent> [B :bfirst<CR>
+noremap <silent> ]B :blast<CR>
