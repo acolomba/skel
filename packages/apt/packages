@@ -3,5 +3,6 @@ bash-completion
 direnv
 fd-find
 fzf
+gh
 source-highlight
 zsh
