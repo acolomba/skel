@@ -32,13 +32,6 @@ fpath=(~/.zsh/completion $fpath)
 path+=("$HOME/bin")
 export PATH
 
-# completion for homebrew software
-if type brew &>/dev/null; then
-    # completion for homebrew zsh
-    fpath=($(brew --prefix)/share/zsh-completions $fpath)
-    fpath=($(brew --prefix)/share/zsh/site-functions $fpath)
-fi
-
 autoload -Uz compinit && compinit
 
 setopt auto_menu
@@ -52,25 +45,30 @@ fi
 
 # ls
 case $(uname) in
-    Darwin|FreeBSD)
-        export CLICOLOR=--color=auto
+    Darwin)
+        export CLICOLOR_FORCE=1
+        _ls() { \ls -bCFhG $@; }
         ;;
 
     Linux)
-        ls_opts="--color=always -bCFh"
-        __ls() { \ls --color=always -bCFh $@ | less -ERX; }
+        _ls() { \ls --color=always -bCFh $@; }
         ;;
 esac
 
-alias ll="ls -l"
-alias la="ls -la"
+
+if [[ $(type -w _ls) == "_ls: function" ]]; then
+    alias ls="_ls"
+    alias ll="_ls -l"
+    alias la="_ls -la"
+fi
 
 # less
 export LESS="-FRXi"
 
-if type lesspipe >/dev/null; then
-    eval $(lesspipe)
-elif type lesspipe.sh >/dev/null; then
+# lesspipe
+if type lesspipe &>/dev/null; then
+    eval $(lesspipe) &>/dev/null
+elif type lesspipe.sh &>/dev/null; then
     export LESSOPEN="| $(brew --prefix)/bin/lesspipe.sh %s"
     export LESS_ADVANCED_PREPROCESSOR=1
 elif type src-hilite-lesspipe.sh &>/dev/null; then
@@ -89,11 +87,13 @@ man() {
     LESS_TERMCAP_so=$(printf "\e[1;44;33m") \
     LESS_TERMCAP_ue=$(printf "\e[0m") \
     LESS_TERMCAP_us=$(printf "\e[1;32m") \
-    man $@
+    man "$@"
 }
 
 # screen
 alias scr="screen -d -RR"
+
+# prompt
 
 if [[ $TERM == "screen" ]]; then
     _GET_PATH='echo $PWD | sed "s/^\/Users\//~/;s/^~$USER/~/"'
@@ -112,7 +112,7 @@ if [[ $TERM == "screen" ]]; then
     }
 fi
 
-# prompt
+# colors
 autoload -U colors && colors
 PROMPT="%{$fg[red]%}%m%{$reset_color%}:%{$fg[blue]%}%~%{$reset_color%} %# "
 
@@ -137,7 +137,7 @@ fi
 # fzf
 case $(uname) in
     Darwin)
-        if type fzf >/dev/null && type fd &>/dev/null; then
+        if type fzf &>/dev/null && type fd &>/dev/null; then
             if [[ ! "$PATH" == *$(brew --prefix)/opt/fzf/bin* ]]; then
               export PATH="${PATH:+${PATH}:}$(brew --prefix)/opt/fzf/bin"
             fi
@@ -149,7 +149,7 @@ case $(uname) in
         ;;
 
     Linux)
-        if type fzf >/dev/null && type fdfind &>/dev/null; then
+        if type fzf &>/dev/null && type fdfind &>/dev/null; then
             [[ $- == *i* ]] && . /usr/share/doc/fzf/examples/completion.zsh
 
             . /usr/share/doc/fzf/examples/key-bindings.zsh
@@ -172,6 +172,13 @@ esac
 
 # completion
 
+# completion for homebrew software
+if type brew &>/dev/null; then
+    # completion for homebrew zsh
+    fpath=($(brew --prefix)/share/zsh-completions $fpath)
+    fpath=($(brew --prefix)/share/zsh/site-functions $fpath)
+fi
+
 # sets completion for a command the same as another (https://unix.stackexchange.com/questions/496379/treat-command-like-another-for-completion-purposes)
 compdefas () {
   if (($+_comps[$1])); then
@@ -193,9 +200,6 @@ case $(uname) in
         ;;
 esac
 
-# sources local zshrc
-[[ -f ~/.zsh/zshrc-local.zsh ]] && . ~/.zsh/zshrc-local.zsh
-
 # zsh syntax highlighting
 case $(uname) in
     Darwin)
@@ -203,6 +207,9 @@ case $(uname) in
 
         ;;
 esac
+
+# sources local zshrc
+[[ -f ~/.zsh/zshrc-local.zsh ]] && . ~/.zsh/zshrc-local.zsh
 
 # cd home
 cd

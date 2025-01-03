@@ -1,18 +1,6 @@
 # do nothing if non-interactive
 [[ $- != *i* ]] && return
 
-# completion; this runs only on 4+
-if (( $BASH_VERSINFO >= 4 )); then
-    IFS=: read -a paths <<< "$PATH"
-    for path in "${paths[@]}"; do
-        for location in ${path}/../etc/bash_completion ${path}/../share/bash-completion/bash_completion ${path}/../etc/profile.d/bash_completion.sh; do
-            if [[ -r $location ]]; then
-                . $location
-            fi
-        done
-    done
-fi
-
 # appends to the histfile instead of overwriting
 shopt -s histappend
 
@@ -33,30 +21,40 @@ shopt -s globstar 2> /dev/null
 # be corrected
 shopt -s cdspell
 
-# ls command options and helpers
+# editor
+if type vim &>/dev/null; then
+    export EDITOR=vim
+else
+    export EDITOR=vi
+fi
 
 # ls
 case $(uname) in
-    Darwin|FreeBSD)
+    Darwin)
         export CLICOLOR_FORCE=1
-        _ls() { \ls -bCFhG $@ | less -ERX; }
+        _ls() { \ls -bCFhG $@; }
         ;;
 
     Linux)
-        ls_opts="--color=always -bCFh"
-        _ls() { \ls --color=always -bCFh $@ | less -ERX; }
+        _ls() { \ls --color=always -bCFh $@; }
         ;;
 esac
 
-alias ls="_ls"
-alias ll="_ls -l"
-alias la="_ls -la"
+
+if [[ $(type -t _ls) == function ]]; then
+    alias ls="_ls"
+    alias ll="_ls -l"
+    alias la="_ls -la"
+fi
 
 # less
+export LESS="-FRXi"
+
+# lesspipe
 if type lesspipe &>/dev/null; then
     eval $(lesspipe) &>/dev/null
 elif type lesspipe.sh &>/dev/null; then
-    export LESSOPEN="|/usr/local/bin/lesspipe.sh %s"
+    export LESSOPEN="| $(brew --prefix)/bin/lesspipe.sh %s"
     export LESS_ADVANCED_PREPROCESSOR=1
 elif type src-hilite-lesspipe.sh &>/dev/null; then
     export LESSOPEN="| src-hilite-lesspipe.sh %s"
@@ -77,8 +75,7 @@ man() {
     man "$@"
 }
 
-
-# screen helper that will always try to reattach to some detached session
+# screen
 alias scr="screen -d -RR"
 
 # prompt
@@ -104,7 +101,7 @@ else
     prompt_suffix=">"
 fi
 
-# some colors
+# colors
 start_host_color="\[\e[1;31m\]"
 end_host_color="\[\e[m\]"
 start_pwd_color="\[\e[1;34m\]"
@@ -118,30 +115,28 @@ case $TERM in
         export PROMPT_COMMAND='echo -n -e "\033k\033\\"'
         ;;
 esac
-
-# acme
-if [[ -r $HOME/.acme.sh/acme.sh.env ]]; then
-    . "$HOME/.acme.sh/acme.sh.env"
+# direnv
+if type direnv &>/dev/null; then
+    eval "$(direnv hook bash)"
+    export DIRENV_LOG_FORMAT=
 fi
 
 # fzf
 case $(uname) in
     Darwin)
         if type fzf &>/dev/null && type fd &>/dev/null; then
-            if [[ ! "$PATH" == */usr/local/opt/fzf/bin* ]]; then
-              export PATH="${PATH:+${PATH}:}/usr/local/opt/fzf/bin"
+            if [[ ! "$PATH" == *$(brew --prefix)/opt/fzf/bin* ]]; then
+              export PATH="${PATH:+${PATH}:}$(brew --prefix)/opt/fzf/bin"
             fi
 
-            [[ $- == *i* ]] && . /usr/local/opt/fzf/shell/completion.bash
+            [[ $- == *i* ]] && . $(brew --prefix)/opt/fzf/shell/completion.zsh
 
-            . /usr/local/opt/fzf/shell/key-bindings.bash
-        fi
+            . $(brew --prefix)/opt/fzf/shell/key-bindings.zsh
+       fi
         ;;
 
     Linux)
         if type fzf &>/dev/null && type fdfind &>/dev/null; then
-            [[ $- == *i* ]] && . /usr/share/doc/fzf/examples/completion.bash
-
             . /usr/share/doc/fzf/examples/key-bindings.bash
         fi
         ;;
@@ -150,8 +145,8 @@ esac
 # autojump
 case $(uname) in
     Darwin)
-        [[ -f /usr/local/etc/profile.d/autojump.sh ]] \
-            && . /usr/local/etc/profile.d/autojump.sh
+        [[ -f $(brew --prefix)/etc/profile.d/autojump.sh ]] \
+            && . $(brew --prefix)/etc/profile.d/autojump.sh
         ;;
 
     Linux)
@@ -159,6 +154,20 @@ case $(uname) in
             && . /usr/share/autojump/autojump.sh
         ;;
 esac
+
+# completion; this runs only on 4+
+if (( $BASH_VERSINFO >= 4 )); then
+    case $(uname) in
+        Darwin)
+            [[ -r "$(brew --prefix)/etc/profile.d/bash_completion.sh" ]] && . "$(brew --prefix)/etc/profile.d/bash_completion.sh"
+            ;;
+
+        Linux)
+            [[ $PS1 && -f /usr/share/bash-completion/bash_completion ]] && \
+                . /usr/share/bash-completion/bash_completion
+            ;;
+    esac
+fi
 
 # sources local bashrc
 [[ -r ~/.bashrc_local ]] && . ~/.bashrc_local
