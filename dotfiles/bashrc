@@ -32,14 +32,13 @@ fi
 case $(uname) in
     Darwin)
         export CLICOLOR_FORCE=1
-        _ls() { \ls -bCFhG $@; }
+        alias _ls="ls -bCFh"
         ;;
 
     Linux)
-        _ls() { \ls --color=always -bCFh $@; }
+        alias _ls="ls --color=always -bCFh"
         ;;
 esac
-
 
 if [[ $(type -t _ls) == function ]]; then
     alias ls="_ls"
@@ -122,25 +121,17 @@ if type direnv &>/dev/null; then
 fi
 
 # fzf
-case $(uname) in
-    Darwin)
-        if type fzf &>/dev/null && type fd &>/dev/null; then
-            if [[ ! "$PATH" == *$(brew --prefix)/opt/fzf/bin* ]]; then
-              export PATH="${PATH:+${PATH}:}$(brew --prefix)/opt/fzf/bin"
-            fi
+if type fzf &>/dev/null && type fdfind &>/dev/null && [[ $- == *i* ]]; then
+    case $(uname) in
+        Darwin)
+            eval "$(fzf --bash)"
+            ;;
 
-            [[ $- == *i* ]] && . $(brew --prefix)/opt/fzf/shell/completion.zsh
-
-            . $(brew --prefix)/opt/fzf/shell/key-bindings.zsh
-       fi
-        ;;
-
-    Linux)
-        if type fzf &>/dev/null && type fdfind &>/dev/null; then
+        Linux)
             . /usr/share/doc/fzf/examples/key-bindings.bash
-        fi
-        ;;
-esac
+            ;;
+    esac
+fi
 
 # autojump
 case $(uname) in
