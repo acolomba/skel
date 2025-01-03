@@ -55,7 +55,7 @@ case $(uname) in
         ;;
 esac
 
-if [[ $(type -w _ls) == "_ls: function" ]]; then
+if [[ $(type -w _ls) == "_ls: alias" ]]; then
     alias ls="_ls"
     alias ll="_ls -l"
     alias la="_ls -la"
@@ -93,7 +93,6 @@ man() {
 alias scr="screen -d -RR"
 
 # prompt
-
 if [[ $TERM == "screen" ]]; then
     _GET_PATH='echo $PWD | sed "s/^\/Users\//~/;s/^~$USER/~/"'
     TAB_TITLE_PREFIX='"`'$_GET_PATH' | sed "s:..*/::"`$PROMPT_CHAR"'
