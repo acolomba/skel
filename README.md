@@ -20,7 +20,7 @@ Maintains dotfiles with [chezmoi](https://www.chezmoi.io).
 ### macOS
 
 ```sh
-chemoiz -- init --apply $GITHUB_USERNAME
+chezmoi init --apply --verbose acolomba
 ```
 
 ### Other
