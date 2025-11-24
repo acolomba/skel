@@ -7,6 +7,8 @@ curl
 diff-so-fancy
 direnv
 fd
+fish
+fisher
 fzf
 gh
 git
@@ -21,6 +23,7 @@ sslyze
 vim
 watch
 wget
+zoxide
 zsh-autosuggestions
 zsh-completions
 zsh-syntax-highlighting
