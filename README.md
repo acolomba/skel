@@ -4,6 +4,8 @@
 
 Maintains dotfiles with [chezmoi](https://www.chezmoi.io).
 
+On macOS, a set of Brew formulas and casks are automatically installed once.
+
 ## Prerequisites
 
 ### macOS
