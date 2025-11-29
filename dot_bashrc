@@ -32,15 +32,15 @@ fi
 case $(uname) in
     Darwin)
         export CLICOLOR_FORCE=1
-        alias ls="ls -bCFh"
-        alias ll="ls -bCFh -l"
-        alias la="ls -bCFh -la"
+        alias ls="\ls -bCFh"
+        alias ll="\ls -bCFh -l"
+        alias la="\ls -bCFh -la"
         ;;
 
     Linux)
-        alias ls="ls --color=always -bCFh"
-        alias ll="ls --color=always -bCFh -l"
-        alias la="ls --color=always -bCFh -la"
+        alias ls="\ls --color=always -bCFh"
+        alias ll="\ls --color=always -bCFh -l"
+        alias la="\ls --color=always -bCFh -la"
         ;;
 esac
 
