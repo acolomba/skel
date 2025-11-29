@@ -47,19 +47,17 @@ fi
 case $(uname) in
     Darwin)
         export CLICOLOR_FORCE=1
-        alias _ls="ls -bCFh"
+        alias ls="\ls -bCFGh"
+        alias ll="\ls -bCFGh -l"
+        alias la="\ls -bCFGh -la"
         ;;
 
     Linux)
-        alias _ls="ls --color=always -bCFh"
+        alias ls="\ls --color=always -bCFh"
+        alias ll="\ls --color=always -bCFh -l"
+        alias la="\ls --color=always -bCFh -la"
         ;;
 esac
-
-if [[ $(type -w _ls) == "_ls: alias" ]]; then
-    alias ls="_ls"
-    alias ll="_ls -l"
-    alias la="_ls -la"
-fi
 
 # less
 export LESS="-FRXi"
