@@ -160,6 +160,3 @@ fi
 
 # sources local bashrc
 [[ -r ~/.bashrc_local ]] && . ~/.bashrc_local
-
-# cd home
-cd

@@ -197,6 +197,3 @@ esac
 
 # sources local zshrc
 [[ -f ~/.zsh/zshrc-local.zsh ]] && . ~/.zsh/zshrc-local.zsh
-
-# cd home
-cd
