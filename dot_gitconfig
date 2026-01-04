@@ -17,3 +17,5 @@
 
 [log]
 	date = local
+[fetch]
+	prune = true
