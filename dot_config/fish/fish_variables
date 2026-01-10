@@ -6,7 +6,6 @@ SETUVAR _fisher_jorgebucaran_2F_hydro_files:\x7e/\x2econfig/fish/functions/fish_
 SETUVAR _fisher_plugins:reitzig/sdkman\x2dfor\x2dfish\x1ejorgebucaran/hydro\x1eaohorodnyk/fish\x2dautovenv
 SETUVAR _fisher_reitzig_2F_sdkman_2D_for_2D_fish_files:\x7e/\x2econfig/fish/functions/sdk\x2efish\x1e\x7e/\x2econfig/fish/conf\x2ed/sdk\x2efish\x1e\x7e/\x2econfig/fish/completions/sdk\x2efish
 SETUVAR _fisher_upgraded_to_4_4:\x1d
-SETUVAR _hydro_git_82512:acolomba/reponiceties\u2022\x20
 SETUVAR autovenv_announce:no
 SETUVAR autovenv_dir:venv
 SETUVAR autovenv_enable:yes
